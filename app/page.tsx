@@ -25,7 +25,8 @@ export default function HomePage() {
     <>
       <section 
         className="hero" 
-        style={{ backgroundImage: "linear-gradient(rgba(247, 249, 252, 0.98), rgba(247, 249, 252, 0.98)), url('/assets/1.png')" }}
+        style={{ backgroundImage: "linear-gradient(rgba(247, 249, 252, 0.7), rgba(247, 249, 252, 0.7)), url('/assets/first.png')",
+          backgroundSize: 'cover',backgroundPosition: 'center',backgroundRepeat: 'no-repeat'}}
       >
         <div className="container">
             <h1>Pawplan | วางแผนเพื่อสุขภาพที่ดีที่สุดสำหรับเพื่อนรัก</h1>

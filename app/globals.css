@@ -1207,3 +1207,1315 @@ footer ul a:hover {
             color: var(--accent-blue);
             margin-bottom: 15px;
         }
+/*======================================================*/
+/* 11. HISTORY_MISSION STYLES */
+/*======================================================*/
+
+.image-history-box {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin: 40px 0;
+}
+
+.history-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history-image img {
+    width: 420px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+}
+
+.intro-text {
+    text-align: center;
+    font-size: 1.25rem;
+    margin-bottom: 60px;
+    color: var(--text-muted);
+}
+
+.text-content {
+    flex: 1;
+    font-size: 1.25rem;
+    color: #6d7680;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.text-content strong {
+    color: #495057;
+    font-size: 2.2rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* รายการพันธกิจ */
+.mission-list {
+    text-align: left;
+    margin-top: 30px;
+    font-size: 1.25rem;
+    list-style: none;
+    padding: 0;
+    color: var(--text-muted);
+}
+
+.mission-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    padding: 24px 28px;
+    margin-bottom: 12px;
+    transition: box-shadow 0.2s;
+}
+
+.mission-card strong {
+    color: #495057;
+    font-size: 1.15em;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.mission-card span {
+    color: #6d7680;
+    font-size: 1em;
+    font-weight: 400;
+    display: block;
+}
+
+.mission-card .icon-bullet {
+    font-size: 1.7em;
+    margin-top: 2px;
+    color: #7cb342;
+}
+
+.image-mission-box {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.mission-image img {
+    width: 400px;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+@media (max-width: 900px) {
+    .image-history-box {
+        flex-direction: column;
+        gap: 30px;
+
+        /* Debug indicator for openModalId (development aid) */
+        .open-modal-debug {
+            position: fixed;
+            left: 12px;
+            bottom: 12px;
+            background: rgba(17, 24, 39, 0.9);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 10000;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+
+    }
+
+    .history-image img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .text-content {
+        font-size: 1.2rem;
+    }
+}
+
+/*======================================================*/
+/* 12. NEWS_ACTVITIES.HTML STYLES */
+/*======================================================*/
+
+/* 1. ตัวครอบเนื้อหาทั้งหมด */
+.news-container {
+    max-width: 1200px;
+    /* กำหนดความกว้างสูงสุด */
+    margin: 2rem auto;
+    /* จัดให้อยู่กึ่งกลางแนวนอน */
+    padding: 0 1rem;
+    /* เว้นระยะห่างซ้ายขวาเล็กน้อย */
+}
+
+/* 2. ตารางแสดงข่าว (Grid) */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    /* ระยะห่างระหว่างการ์ด */
+}
+
+/* 3. การ์ดข่าวแต่ละใบ */
+.news-card {
+    border: 1px solid #e0e0e0;
+    /* เส้นขอบสีเทาอ่อน */
+    border-radius: 8px;
+    /* ทำให้ขอบมน */
+    overflow: hidden;
+    /* ซ่อนส่วนที่ล้นขอบ (สำคัญสำหรับรูป) */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    /* เพิ่มเงาเล็กน้อย */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    /* ทำให้การ์ดลอยขึ้นเล็กน้อยเมื่อเมาส์ชี้ */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 4. รูปภาพในการ์ด */
+.card-image img {
+    width: 100%;
+    /* ทำให้รูปภาพกว้างเต็มการ์ด */
+    height: auto;
+    /* รักษาสัดส่วนรูปภาพ */
+    display: block;
+    /* แก้ปัญหาระยะห่างใต้รูป */
+    aspect-ratio: 15 / 15;
+    /* กำหนดสัดส่วนภาพ (ปรับได้ตามชอบ) */
+    object-fit: cover;
+    /* ทำให้รูปเต็มกรอบโดยไม่เสียสัดส่วน */
+}
+
+/* 5. เนื้อหาในการ์ด (หัวข้อ, รายละเอียด, ลิงก์) */
+.card-content {
+    padding: 1.5rem;
+    /* ระยะห่างภายในขอบการ์ด */
+}
+
+/* 6. หัวข้อข่าว */
+.card-title {
+    font-size: 1.25rem;
+    /* ขนาดตัวอักษร */
+    font-weight: 600;
+    /* ความหนา */
+    color: #333;
+    /* สีตัวอักษร */
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+/* 7. รายละเอียดข่าว */
+.card-description {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+    /* ระยะห่างระหว่างบรรทัด */
+    margin-bottom: 1.25rem;
+}
+
+/* 8. ลิงก์ "ดูเพิ่มเติม" */
+.card-link {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #007bff;
+    /* สีลิงก์ (สีฟ้า) */
+    text-decoration: none;
+    /* ไม่ขีดเส้นใต้ */
+    transition: color 0.3s ease;
+}
+
+.card-link:hover {
+    color: #0056b3;
+    /* สีเข้มขึ้นเมื่อเมาส์ชี้ */
+}
+
+/* --- การปรับแต่งสำหรับมือถือ (Responsive) --- 
+  เมื่อหน้าจอเล็กกว่า 768px ให้เปลี่ยนเป็น 1 คอลัมน์
+*/
+@media (max-width: 768px) {
+    .news-grid {
+        /* เปลี่ยนเป็น 1 คอลัมน์ */
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- สไตล์สำหรับ Modal Popup --- */
+
+/* 1. ตัวครอบ Modal หลัก (ซ่อนไว้ตอนเริ่ม) */
+.modal {
+    position: fixed;
+    /* อยู่กับที่แม้จะเลื่อนหน้าจอ */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    /* อยู่ทับทุกอย่าง */
+
+    /* ซ่อนไว้ก่อน */
+    opacity: 0;
+    visibility: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* 2. คลาส '.is-visible' (ใช้ JavaScript สั่งให้แสดง) */
+.modal.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 3. พื้นหลังสีดำโปร่งแสง */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    /* สีดำโปร่งแสง 70% */
+    cursor: pointer;
+    /* คลิกที่พื้นหลังเพื่อปิด */
+}
+
+/* 4. กล่องเนื้อหา (สีขาว) */
+.modal-content {
+    position: relative;
+    /* เพื่อให้ปุ่มปิด (X) ลอยอยู่มุมบนได้ */
+    z-index: 1001;
+    /* อยู่ทับพื้นหลังสีดำ */
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 550px;
+    /* ความกว้างสูงสุด 800px */
+    max-height: 90vh;
+    /* ความสูงสุด 90% ของความสูงหน้าจอ */
+    overflow-y: auto;
+    /* ถ้าเนื้อหายาว ให้มี scrollbar */
+
+    /* Animation ตอนเปิด */
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.is-visible .modal-content {
+    transform: scale(1);
+}
+
+/* 5. ปุ่มปิด (X) */
+.modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+/* 6. สไตล์เนื้อหาภายใน Modal */
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.modal-content p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.modal-body-content p:first-of-type {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.modal-body-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-body-content ul li {
+    margin-bottom: 10px;
+    border-left: 4px solid #00a896;
+    padding-left: 10px;
+}
+
+.modal-body-content ul li span {
+    font-weight: 700;
+    color: #028090;
+}
+
+.modal-body-content p:nth-of-type(2) {
+    text-align: center;
+    margin-top: 25px;
+    font-style: italic;
+    color: #4a4a4a;
+}
+
+.modal-body-content p:last-of-type {
+    text-align: right;
+    font-weight: bold;
+    color: #00a896;
+}
+
+.highlight-bold {
+    font-weight: 700;
+}
+
+.prize-money {
+    color: #028090;
+}
+
+.highlight-extra-bold {
+    font-weight: 800;
+}
+
+.call-to-action {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+    font-size: 1.1em;
+}
+
+/* ------------------------------------------------------------------ */
+/* สไตล์เฉพาะสำหรับ Modal 4 */
+/* ------------------------------------------------------------------ */
+.modal-body-blood h3 {
+    color: #d84315;
+    /* สีแดงอิฐ */
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.modal-body-blood ul {
+    list-style-type: none;
+    padding: 0 20px;
+    text-align: left;
+}
+
+.modal-body-blood ul li {
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dotted #ccc;
+    font-size: 1em;
+    color: #444;
+}
+
+.modal-body-blood .hero-feature {
+    font-weight: 700;
+    color: #028090;
+    /* สีน้ำเงินเข้ม */
+}
+
+.modal-body-blood .special-benefit {
+    font-weight: 700;
+    color: #ff7043;
+    /* สีส้ม */
+}
+
+.modal-body-blood .motto {
+    font-style: italic;
+    color: #777;
+    margin: 25px 0 15px 0;
+}
+
+.modal-body-blood .action-contact {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #028090;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #00a896;
+}
+
+/* ------------------------------------------------------------------ */
+/* สไตล์เฉพาะสำหรับ Modal 5 (ตรวจสุขภาพประจำปี) */
+/* ------------------------------------------------------------------ */
+.modal-body-checkup .subtitle {
+    font-size: 1.2em;
+    font-style: italic;
+    color: #4a4a4a;
+    margin-bottom: 25px;
+}
+
+.modal-body-checkup h3 {
+    color: #ff7043;
+    /* สีส้ม */
+    font-size: 1.4em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.modal-body-checkup ul {
+    list-style-type: none;
+    padding: 0 10px;
+    text-align: left;
+}
+
+.modal-body-checkup ul li {
+    background-color: #fff3e0;
+    /* สีครีมอ่อน */
+    padding: 12px;
+    margin-bottom: 10px;
+    border-left: 5px solid #028090;
+    /* สีน้ำเงินเข้ม */
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    line-height: 1.4;
+}
+
+.modal-body-checkup .checkup-item {
+    font-weight: 700;
+    color: #028090;
+}
+
+.modal-body-checkup .promo-date {
+    font-weight: 800;
+    color: #d84315;
+    /* สีแดงอิฐ */
+    margin-top: 20px;
+    display: block;
+}
+
+.modal-body-checkup .call-to-action-footer {
+    font-weight: 700;
+    color: #00a896;
+    /* สีเขียวน้ำทะเล */
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #cccccc;
+    font-size: 1.1em;
+}
+
+/* ------------------------------------------------------------------ */
+/* สไตล์เฉพาะสำหรับ Modal 6 (กายภาพบำบัด) */
+/* ------------------------------------------------------------------ */
+
+.modal-body-rehab h3 {
+    color: #028090;
+    /* สีน้ำเงินเข้ม */
+    font-size: 1.35em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 2px solid #00a896;
+    padding-bottom: 5px;
+}
+
+.modal-body-rehab ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.modal-body-rehab ul li {
+    padding: 8px 0;
+    font-size: 1em;
+    color: #333;
+    line-height: 1.4;
+    border-bottom: 1px dotted #e0e0e0;
+}
+
+.modal-body-rehab .rehab-highlight {
+    font-weight: 800;
+    color: #ff7043;
+    /* สีส้ม */
+}
+
+.modal-body-rehab .rehab-list-item {
+    font-weight: 600;
+    color: #028090;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.modal-body-rehab .call-to-action-rehab {
+    font-weight: 700;
+    color: #d84315;
+    /* สีแดงอิฐ */
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #ff7043;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.modal-body-rehab .contact-rehab {
+    font-size: 0.95em;
+    color: #666;
+    margin-top: 10px;
+}
+/*======================================================*/
+/* 13. AWARDS_ACCREDITATIONS.HTML STYLES */
+/*======================================================*/
+
+.awards-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.awards-section h1 {
+    font-size: 2.8rem;
+    color: #1a3a6b;
+    margin: 0;
+}
+
+.awards-section .subtitle {
+    font-size: 1.25rem;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.awards-section .divider,
+.awards_accreditations-page .divider {
+    width: 400px;
+    height: 7px;
+    background-color: #2979ff;
+    margin: 0 auto 25px auto;
+    border-radius: 2px;
+}
+
+.content-container p {
+    font-size: 18px;
+    color: #333333;
+    text-align: center;
+
+}
+
+.awards-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+/* === ส่วนของสไลเดอร์ === */
+
+/* 1. Viewport: กล่องที่ใช้ "ซ่อน" grid อื่นๆ */
+.slider-viewport {
+    width: 100%;
+    overflow: hidden;
+    /* ซ่อนทุกอย่างที่ล้นออกไป */
+}
+
+/* 2. Track: แถบยาวๆ ที่บรรจุ grid */
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    /* เพื่อให้เลื่อนแบบนุ่มนวล */
+}
+
+/* 3. Grid: เนื้อหาแต่ละหน้า */
+.slider-grid {
+    width: 100%;
+    flex-shrink: 0;
+    /* สำคัญ! ป้องกันไม่ให้ grid หดตัว */
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+/* --- ตารางแสดงรางวัล (Grid Layout) ภายใน Slider Grid --- */
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+/* --- การ์ดรางวัลแต่ละอัน (รวมสไตล์ที่ซ้ำซ้อนแล้ว) --- */
+.award-item {
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.award-image-box {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/* --- รูปภาพรางวัล --- */
+.award-image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* หัวข้อรางวัล */
+.award-item h3 {
+    font-size: 1.15rem;
+    color: #1a3a6b;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+/* รายละเอียดรางวัล */
+.award-item p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+    /* ระยะห่างระหว่างบรรทัด */
+    margin: 0;
+    text-align: center;
+    /* ยึดการจัดกลางเป็นหลัก */
+}
+
+
+/* --- จุด Pagination --- */
+.pagination-dots {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #c5d9e8;
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* จุดที่ถูกเลือก (จุดใหญ่) */
+.dot.active {
+    width: 14px;
+    height: 14px;
+    background-color: #1a3a6b;
+    transform: translateY(2px);
+}
+
+/* --- แถบโลโก้ที่เลื่อนได้ (แก้ไขไวยากรณ์ SCSS) --- */
+.logo-scroll-container {
+    overflow-x: auto;
+    /* ★ ทำให้เลื่อนแนวนอนได้ ★ */
+    overflow-y: hidden;
+    /*-ms-overflow-style: none;  /* IE and Edge */
+    /*scrollbar-width: none;  /* Firefox */
+}
+
+/* สำหรับ Chrome, Safari, Edge */
+.logo-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* --- สำหรับมือถือ (Responsive) --- */
+@media (max-width: 768px) {
+    .awards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .awards-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+/*======================================================*/
+/* 14. dog.HTML STYLES (ปรับปรุง) */
+/*======================================================*/
+.text-content {
+    padding-left: 1.5rem;
+}
+
+.text-content h4 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.text-content ul {
+    list-style-type: none;
+    padding-left: 0;
+    /* เอา padding ที่ browser ใส่มาให้ list ออก */
+    margin-bottom: 20px;
+}
+
+.text-content ul li {
+    margin-bottom: 8px;
+    position: relative;
+    /* 1. เพิ่ม position relative เพื่อให้ ::before อ้างอิงได้ */
+    padding-left: 1.75rem;
+    /* 2. เพิ่ม padding ด้านซ้าย (เพื่อเว้นที่ให้ bullet) */
+}
+
+/* 3. สร้าง custom bullet (สัญลักษณ์) */
+.text-content ul li::before {
+    content: '🐾';
+    position: absolute;
+    left: 0rem;
+    /* ปรับระยะห่างจากขอบ */
+    top: 0;
+    color: #007bff;
+    /* สีของ bullet (สีเดียวกับลิงก์) */
+    font-weight: bold;
+}
+
+
+.text-content ul li a {
+    text-decoration: none;
+    color: #0056b3;
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+.text-content ul li a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* ========================================================================= */
+/* --- DoctorsAdminPage.css --- */
+/* (Theme Variables, Base Styles, and Component Layouts) */
+/* ========================================================================= */
+
+/* ----------------------------------------------------------------- */
+/* ⚡ THEME VARIABLES (ฟ้าข้าว) */
+/* ----------------------------------------------------------------- */
+.theme-fakaow {
+    --fk-blue: #0ea5e9; 
+    --fk-deep: #075985;
+    --fk-muted: #6b7280;
+    --fk-accent: #eef8ff; /* Light accent for selected items */
+    --card-bg: #ffffff;
+    --focus-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
+    --soft-shadow: 0 4px 12px rgba(7, 89, 133, 0.05);
+
+    /* Base Typography and Background */
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8fafc; 
+    color: #0f172a; 
+}
+
+.admin-page-wrapper {
+    padding: 30px;
+    max-width: 1280px;
+    margin: auto;
+}
+
+/* ----------------------------------------------------------------- */
+/* 1. LAYOUTS AND CONTAINERS */
+/* ----------------------------------------------------------------- */
+.page-header-controls {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Main Panel (The white container for list and detail) */
+.main-panel.card {
+    padding: 0; 
+    overflow: hidden; 
+    /* ใช้ card style จากธีม (shadows, border-radius) */
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), var(--soft-shadow);
+    border: 1px solid rgba(241, 245, 249, 0.8);
+}
+
+/* Split View Layout */
+.detail-panel-layout {
+    display: flex;
+    min-height: 700px; 
+}
+
+.list-panel {
+    width: 300px;
+    border-right: 1px solid #e2e8f0;
+    padding: 20px 0;
+}
+
+.detail-panel {
+    flex: 1;
+    padding: 30px;
+}
+
+.list-items-container {
+    list-style: none;
+    padding: 0 20px 0 20px;
+    margin: 0;
+}
+
+/* ----------------------------------------------------------------- */
+/* 2. THEME COMPONENTS AND OVERRIDES */
+/* ----------------------------------------------------------------- */
+
+/* Titles */
+.accent { color: var(--fk-deep); }
+.muted { color: var(--fk-muted); }
+.theme-fakaow h1 { font-size: 1.8rem; font-weight: 700; }
+.theme-fakaow h2 { font-size: 1.5rem; font-weight: 600; }
+.theme-fakaow h3 { font-size: 1.3rem; font-weight: 600; }
+
+/* Inputs and Selects (Theme Styles) */
+.theme-fakaow input, 
+.theme-fakaow select {
+    border: 1px solid rgba(7, 89, 133, 0.15); 
+    background: var(--card-bg); 
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    color: #0f172a;
+    outline: none;
+    transition: all .2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.theme-fakaow input:focus, .theme-fakaow select:focus {
+    box-shadow: var(--focus-shadow);
+    border-color: var(--fk-blue);
+}
+
+/* Primary Button (Theme Styles) */
+.theme-fakaow .btn-primary {
+    background: linear-gradient(90deg, var(--fk-blue), #0784bf);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.6rem 1.25rem; 
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 10px 30px rgba(7, 89, 133, 0.2); 
+    transition: all .2s ease;
+}
+.theme-fakaow .btn-primary:hover { transform: translateY(-1px); }
+
+/* ✨ [ปุ่มสร้างบัญชีใหม่] - ENHANCED STYLE ✨ */
+.theme-fakaow .create-new-user-btn {
+    font-size: 1rem; 
+    padding: 0.75rem 1.6rem;
+    font-weight: 700; 
+    box-shadow: 0 12px 30px rgba(7, 89, 133, 0.3), 0 2px 4px rgba(7, 89, 133, 0.15); 
+}
+.theme-fakaow .create-new-user-btn:hover {
+    transform: translateY(-2px); 
+}
+/* ----------------------------------------------- */
+
+/* Secondary Button (Theme Styles) */
+.theme-fakaow .btn-secondary {
+    border-radius: 8px;
+    padding: 0.6rem 1.25rem;
+    background-color: #f1f5f9; 
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+/* Danger Button Override */
+.theme-fakaow .danger-button {
+    background-color: #fee2e2;
+    color: #b91c1c; 
+    border-color: #fca5a5;
+}
+.theme-fakaow .danger-button:hover { background-color: #fecaca; }
+
+/* Avatar (Theme Styles) */
+.theme-fakaow .avatar {
+    background: linear-gradient(135deg, #06b6d4, var(--fk-deep)); 
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px; 
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+}
+
+/* Badge (Theme Styles) */
+.theme-fakaow .badge {
+    border-radius: 999px;
+    padding: 0.25rem .5rem; 
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+.theme-fakaow .badge.admin { background:#fef3c7; color:#92400e; }
+.theme-fakaow .badge.active { background:#ecfdf5; color:#065f46; }
+.theme-fakaow .badge.disable { background:#fef2f2; color:#991b1b; }
+
+
+/* ----------------------------------------------------------------- */
+/* 3. LIST/DETAIL SPECIFIC STYLES */
+/* ----------------------------------------------------------------- */
+
+/* List Item Card */
+.list-item-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+.list-item-card .list-item-text-area {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden; 
+}
+.list-item-card .muted {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+}
+
+/* Selected State */
+.list-item-card.is-selected {
+    background: var(--fk-accent);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+/* Hover State */
+.list-item-card.hover-effect:hover {
+    background: #fafbfc;
+}
+
+
+/* Detail View */
+.detail-header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    font-size: 0.9rem;
+}
+
+.form-layout-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.select-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Placeholder */
+.no-selection-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-page-wrapper {
+        padding: 20px 15px;
+    }
+    .page-header-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .control-group {
+        flex-direction: row;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    .detail-panel-layout {
+        flex-direction: column;
+        min-height: auto;
+    }
+    .list-panel {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 10px 0;
+    }
+    .list-items-container {
+        padding: 0 15px;
+    }
+    .detail-panel {
+        padding: 20px 15px;
+    }
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*======================================================*/
+/* 14. dog STYLES  */
+/*======================================================*/
+/* ================================================= */
+/* 1. LAYOUT & TYPOGRAPHY (Global) */
+/* ================================================= */
+.content-section.dog-page {
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.content-section h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* ================================================= */
+/* 2. CATEGORY TABS (ปุ่มเลือกหมวดหมู่) */
+/* ================================================= */
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.category-button {
+    background-color: #f0f0f0;
+    color: #555;
+    border: 1px solid #ddd;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.category-button:hover {
+    background-color: #93c7ffcf;
+    color: #333;
+    border-color: #93c7ffcf;
+}
+
+.category-button.active {
+    background-color: #0a6edc;
+    /* สีส้ม */
+    color: #ffffff;
+    border-color: #0a6edc;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(242, 139, 36, 0.4);
+}
+
+/* ================================================= */
+/* 3. ARTICLE CARD GRID (รูปแบบการแสดงบทความ) */
+/* ================================================= */
+.article-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.article-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.article-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-image-wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.article-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+.card-content2 {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-category {
+    font-size: 0.9rem;
+    color: #0a6edc;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+.card-snippet {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: auto;
+    margin-bottom: 15px;
+}
+
+.read-more-button {
+    display: inline-block;
+    background-color: #0a6edc;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    margin-top: auto;
+}
+
+.read-more-button:hover {
+    background-color: #0a6edc;
+    transform: translateY(-2px);
+}
+
+.no-articles {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+    color: #777;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* ================================================= */
+/* 4. MEDIA QUERIES */
+/* ================================================= */
+@media (max-width: 768px) {
+    .content-section h2 {
+        font-size: 2rem;
+    }
+
+    .intro-text {
+        font-size: 1rem;
+    }
+
+    .article-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-tabs {
+        justify-content: start;
+    }
+
+    .category-button {
+        flex-grow: 1;
+    }
+}

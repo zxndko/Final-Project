@@ -13,10 +13,10 @@ export default function AdminPanelPage() {
                         <h3>จัดการนัดหมาย</h3>
                         <p>ดูและอนุมัติการจองนัดหมาย</p>
                     </Link>
-                    <div className="action-card">
+                      <Link href="/admin/docters" className="action-card">
                         <h3>จัดการบัญชีผู้ใช้</h3>
                         <p>เพิ่ม แก้ไข หรือลบข้อมูลหมอ</p>
-                    </div>
+                    </Link>
                     <div className="action-card">
                         <h3>จัดการหน้าเว็บไซต์</h3>
                         <p>เพิ่ม แก้ไข ลบ หรืออัพเดทข้อมูล</p>

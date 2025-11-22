@@ -15,10 +15,9 @@ export default function Header() {
               <li className="dropdown">
                 <a href="#" className="dropbtn">เกี่ยวกับเรา <span className="arrow">▼</span></a>
                 <ul className="dropdown-content">
-                  <li><a href="#">ประวัติและพันธกิจ</a></li>
-                  <li><a href="#">ข่าวสารและกิจกรรม</a></li>
-                  <li><a href="#">รางวัลและการรับรอง</a></li>
-                  <li><a href="#">ร่วมงานกับเรา</a></li>
+                  <li><a href="/about-us/history_mission">ประวัติและพันธกิจ</a></li>
+                  <li><a href="/about-us/news_activities">ข่าวสารและกิจกรรม</a></li>
+                  <li><a href="/about-us/awards_accreditations">รางวัลและการรับรอง</a></li>
                   <li><Link href="/#contact">ติดต่อเรา</Link></li>
                 </ul>
               </li>
@@ -40,9 +39,9 @@ export default function Header() {
               <li className="dropdown">
                 <a href="#" className="dropbtn">บทความ <span className="arrow">▼</span></a>
                 <ul className="dropdown-content">
-                  <li><a href="#">บทความสุนัข</a></li>
-                  <li><a href="#">บทความแมว</a></li>
-                  <li><a href="#">เคล็ดลับสุขภาพ</a></li>
+                  <li><a href="/articles/dog">บทความสุนัข</a></li>
+                  <li><a href="/articles/cat">บทความแมว</a></li>
+                  <li><a href="/articles/health-tips">เคล็ดลับสุขภาพ</a></li>
                 </ul>
               </li>
             </ul>
