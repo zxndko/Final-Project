@@ -1,9 +1,12 @@
 // app/admin/page.tsx
 import Link from 'next/link';
+import HideHeader from '@/components/HideHeader';
 
 export default function AdminPanelPage() {
     return (
         <section className="admin-dashboard">
+            {/* client component hides global header when this page mounts */}
+            <HideHeader />
             <div className="container">
                 <h1>ยินดีต้อนรับสู่ Admin Panel</h1>
                 <p>เข้าสู่ระบบด้วยสิทธิ์ผู้ดูแลระบบเรียบร้อยแล้ว</p>
@@ -21,10 +24,6 @@ export default function AdminPanelPage() {
                         <h3>จัดการหน้าเว็บไซต์</h3>
                         <p>เพิ่ม แก้ไข ลบ หรืออัพเดทข้อมูล</p>
                     </div>
-                </div>
-                
-                <div style={{ marginTop: '50px' }}>
-                    <Link href="/" className="cta-button big-cta">ออกจากระบบ</Link>
                 </div>
             </div>
         </section>

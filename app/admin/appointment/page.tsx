@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import HideHeader from '@/components/HideHeader';
 
 export default function AppointmentPage() {
     const sampleAppointments = [
@@ -11,6 +12,7 @@ export default function AppointmentPage() {
 
     return (
         <section className="page-section admin-appointments">
+            <HideHeader />
             <div className="container">
                 <header className="page-header">
                     <h1 className="page-title">รายการนัดหมายที่จอง</h1>

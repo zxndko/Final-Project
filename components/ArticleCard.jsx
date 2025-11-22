@@ -25,7 +25,7 @@ export default function ArticleCard({ article }) {
                     })()
                 }
             </div>
-            <div className="card-content2">
+            <div className="card-content">
                 <p className="card-category">{article.category.replace(/[^ก-๙a-zA-Z ]/g, '')}</p>
                 <h4 className="card-title">{article.title}</h4>
                 <p className="card-snippet">{article.snippet}</p>

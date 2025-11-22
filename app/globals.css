@@ -183,6 +183,8 @@ header {
 .content-section {
     padding: 100px 0; 
     min-height: 60vh;
+    color: #000; /* เปลี่ยนสีตัวหนังสือให้ชัดเจน */
+    display: block; /* ตรวจสอบว่าแสดงผล */
 }
 .content-section h2 {
     text-align: center;
@@ -2318,20 +2320,20 @@ footer ul a:hover {
     background-color: #f9f9f9;
 }
 
-.container {
+.content-section.dog-page .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
 }
 
-.content-section h2 {
+.content-section.dog-page h2 {
     font-size: 2.5rem;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.intro-text {
+.content-section.dog-page .intro-text {
     font-size: 1.1rem;
     color: #666;
     text-align: center;
@@ -2339,10 +2341,8 @@ footer ul a:hover {
     line-height: 1.6;
 }
 
-/* ================================================= */
-/* 2. CATEGORY TABS (ปุ่มเลือกหมวดหมู่) */
-/* ================================================= */
-.category-tabs {
+/* CATEGORY TABS (scoped) */
+.content-section.dog-page .category-tabs {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -2354,7 +2354,7 @@ footer ul a:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.category-button {
+.content-section.dog-page .category-button {
     background-color: #f0f0f0;
     color: #555;
     border: 1px solid #ddd;
@@ -2367,32 +2367,29 @@ footer ul a:hover {
     white-space: nowrap;
 }
 
-.category-button:hover {
+.content-section.dog-page .category-button:hover {
     background-color: #93c7ffcf;
     color: #333;
     border-color: #93c7ffcf;
 }
 
-.category-button.active {
+.content-section.dog-page .category-button.active {
     background-color: #0a6edc;
-    /* สีส้ม */
     color: #ffffff;
     border-color: #0a6edc;
     font-weight: 700;
     box-shadow: 0 2px 8px rgba(242, 139, 36, 0.4);
 }
 
-/* ================================================= */
-/* 3. ARTICLE CARD GRID (รูปแบบการแสดงบทความ) */
-/* ================================================= */
-.article-card-grid {
+/* ARTICLE CARD GRID (scoped) */
+.content-section.dog-page .article-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 30px;
 }
 
-.article-card {
+.content-section.dog-page .article-card {
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -2403,36 +2400,36 @@ footer ul a:hover {
     height: 100%;
 }
 
-.article-card:hover {
+.content-section.dog-page .article-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.card-image-wrapper {
+.content-section.dog-page .card-image-wrapper {
     width: 100%;
     height: 200px;
     overflow: hidden;
 }
 
-.card-image {
+.content-section.dog-page .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.article-card:hover .card-image {
+.content-section.dog-page .article-card:hover .card-image {
     transform: scale(1.05);
 }
 
-.card-content2 {
+.content-section.dog-page .card-content {
     padding: 20px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-.card-category {
+.content-section.dog-page .card-category {
     font-size: 0.9rem;
     color: #0a6edc;
     font-weight: 600;
@@ -2440,7 +2437,7 @@ footer ul a:hover {
     text-transform: uppercase;
 }
 
-.card-title {
+.content-section.dog-page .card-title {
     font-size: 1.3rem;
     color: #333;
     margin-bottom: 10px;
@@ -2448,7 +2445,7 @@ footer ul a:hover {
     font-weight: 700;
 }
 
-.card-snippet {
+.content-section.dog-page .card-snippet {
     font-size: 1rem;
     color: #777;
     margin-bottom: 15px;
@@ -2456,7 +2453,7 @@ footer ul a:hover {
     flex-grow: 1;
 }
 
-.card-meta {
+.content-section.dog-page .card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2466,7 +2463,7 @@ footer ul a:hover {
     margin-bottom: 15px;
 }
 
-.read-more-button {
+.content-section.dog-page .read-more-button {
     display: inline-block;
     background-color: #0a6edc;
     color: #ffffff;
@@ -2479,12 +2476,12 @@ footer ul a:hover {
     margin-top: auto;
 }
 
-.read-more-button:hover {
+.content-section.dog-page .read-more-button:hover {
     background-color: #0a6edc;
     transform: translateY(-2px);
 }
 
-.no-articles {
+.content-section.dog-page .no-articles {
     grid-column: 1 / -1;
     text-align: center;
     padding: 40px;
@@ -2495,27 +2492,25 @@ footer ul a:hover {
     margin-top: 20px;
 }
 
-/* ================================================= */
-/* 4. MEDIA QUERIES */
-/* ================================================= */
+/* MEDIA QUERIES (scoped adjustments) */
 @media (max-width: 768px) {
-    .content-section h2 {
+    .content-section.dog-page h2 {
         font-size: 2rem;
     }
 
-    .intro-text {
+    .content-section.dog-page .intro-text {
         font-size: 1rem;
     }
 
-    .article-card-grid {
+    .content-section.dog-page .article-card-grid {
         grid-template-columns: 1fr;
     }
 
-    .category-tabs {
+    .content-section.dog-page .category-tabs {
         justify-content: start;
     }
 
-    .category-button {
+    .content-section.dog-page .category-button {
         flex-grow: 1;
     }
 }

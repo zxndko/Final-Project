@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import HideHeader from '@/components/HideHeader';
 
 type Doctor = {
   id: number;
@@ -45,7 +46,7 @@ export default function DoctorsAdminPage() {
 
   return (
     <div className="admin-page-wrapper theme-fakaow">
-      
+      <HideHeader />
       {/* HEADER + SEARCH + ADD BUTTON */}
       <div className="page-header-controls">
         <div>
