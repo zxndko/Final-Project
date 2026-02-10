@@ -31,12 +31,12 @@ export default function DoctorsPage() {
     ];
 
     return (
-        <section className="content-section doctors-page">
+        <section className="content-section doctors-page page-animate">
             <div className="container">
-                <h2>ทีมสัตวแพทย์ผู้เชี่ยวชาญที่ Pawplan</h2>
-                <p className="intro-text">ที่ Pawplan เราเชื่อว่าการดูแลที่ดีที่สุดต้องมาจากความเข้าใจและความเชี่ยวชาญเฉพาะด้าน ทีมสัตวแพทย์ของเราพร้อมวางแผนการดูแลสุขภาพที่ดีที่สุดให้กับเพื่อนรักของคุณ</p>
+                <h2 className="page-title">ทีมสัตวแพทย์ผู้เชี่ยวชาญที่ Pawplan</h2>
+                <p className="intro-text page-subtitle">ที่ Pawplan เราเชื่อว่าการดูแลที่ดีที่สุดต้องมาจากความเข้าใจและความเชี่ยวชาญเฉพาะด้าน ทีมสัตวแพทย์ของเราพร้อมวางแผนการดูแลสุขภาพที่ดีที่สุดให้กับเพื่อนรักของคุณ</p>
 
-                <div className="doctor-grid">
+                <div className="doctor-grid page-content">
                     {doctors.map((doctor, index) => (
                       <DoctorCard key={index} {...doctor} />
                     ))}

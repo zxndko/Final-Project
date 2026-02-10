@@ -96,14 +96,14 @@ export default function DogArticlePage() {
   }, []);
 
   return (
-    <section className="content-section dog-page">
+    <section className="content-section dog-page page-animate">
       <div className="container">
-        <h2>🐶 Dog Articles : บทความสำหรับสุนัข</h2>
+        <h2 className="page-title">🐶 Dog Articles : บทความสำหรับสุนัข</h2>
         <div className="section-deco">
           <span className="decorative-bar" aria-hidden="true" />
         </div>
 
-        <p className="intro-text">ข้อมูลสุขภาพและการเลี้ยงดูที่เชื่อถือได้จากสัตวแพทย์ Pawplan เพื่อคุณภาพชีวิตที่ดีที่สุดของเพื่อนซี้สี่ขาของคุณ</p>
+        <p className="intro-text page-subtitle">ข้อมูลสุขภาพและการเลี้ยงดูที่เชื่อถือได้จากสัตวแพทย์ Pawplan เพื่อคุณภาพชีวิตที่ดีที่สุดของเพื่อนซี้สี่ขาของคุณ</p>
 
         <CategoryTabs
           categories={categories}
@@ -113,7 +113,7 @@ export default function DogArticlePage() {
 
         <hr />
 
-        <div className="article-card-grid">
+        <div className="article-card-grid page-content">
           {loading && <p>กำลังโหลด...</p>}
           {error && <p className="text-red-600">{error}</p>}
 

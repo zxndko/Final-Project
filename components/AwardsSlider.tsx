@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 // Helper component สำหรับรูปภาพรางวัล (เพื่อลดการเขียนโค้ดซ้ำ)
-const AwardImage = ({ src, alt }) => (
+const AwardImage = ({ src, alt }: { src: string; alt: string }) => (
     <Image
         src={`/assets/${src}`}
         alt={alt}
@@ -19,7 +19,7 @@ export default function AwardsSlider() {
     const [activeGrid, setActiveGrid] = useState(0);
 
     // 3. ฟังก์ชันสำหรับเปลี่ยน Grid เมื่อคลิกที่จุด
-    const handleDotClick = (index) => {
+    const handleDotClick = (index: number) => {
         setActiveGrid(index);
     };
 

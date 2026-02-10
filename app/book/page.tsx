@@ -54,11 +54,11 @@ export default function BookPage() {
     };
 
     return (
-        <main className="content-section booking-page">
+        <main className="content-section booking-page page-animate">
             <div className="container">
-                <h2 className="form-title">📅 กรอกรายละเอียดจองนัดหมาย</h2>
+                <h2 className="form-title page-title">📅 กรอกรายละเอียดจองนัดหมาย</h2>
 
-                <div className="booking-form-wrapper">
+                <div className="booking-form-wrapper page-content">
                     <form id="bookingForm" className="booking-form" 
                           onSubmit={handleSubmit} 
                           style={{ display: isConfirmed ? 'none' : 'block' }}>
