@@ -1,34 +1,46 @@
-// app/doctors/page.tsx (โค้ดใหม่ที่สั้นลง)
+// app/doctors/page.tsx
+'use client';
+
+import { useEffect, useState } from 'react';
 import DoctorCard from '@/components/DoctorCard';
 
+interface Doctor {
+  _id?: number;
+  name: string;
+  nickname?: string;
+  role?: string;
+  expertise?: string;
+  quote?: string;
+  imageSrc?: string;
+}
+
 export default function DoctorsPage() {
-    // กำหนดข้อมูลแพทย์เป็น Array of Objects
-    const doctors = [
-      { 
-        name: "สพ.ญ. ปาริฉัตร วงศ์วาน", nickname: "หมอจูน", role: "สัตวแพทย์ผู้บริหารและเวชปฏิบัติหลัก", 
-        expertise: "เวชศาสตร์ป้องกัน, โภชนาการ, อายุรกรรมทั่วไป", 
-        quote: "เราไม่ได้แค่รักษา แต่เราวางแผนเพื่อชีวิตที่ยืนยาวอย่างมีคุณภาพให้กับสัตว์เลี้ยงของคุณ", 
-        imageSrc: "/assets/June.png" 
-      },
-      { 
-        name: "สพ.น. ณัฐพงศ์ ศิริรัตน์", nickname: "หมอณัฐ", role: "สัตวแพทย์ประจำคลินิก, ผู้เชี่ยวชาญทันตกรรมย่อย", 
-        expertise: "คลินิกทันตกรรมและช่องปาก, การผ่าตัดเล็ก, การวินิจฉัยทางรังสี", 
-        quote: "สุขภาพช่องปากที่ดี คือจุดเริ่มต้นของการมีชีวิตที่แข็งแรง อย่าละเลยปัญหากลิ่นปากของเพื่อนรัก", 
-        imageSrc: "/assets/Nut.png" 
-      },
-      { 
-        name: "สพ.น. ณัฐพงศ์ ศิริรัตน์", nickname: "หมอณัฐ", role: "สัตวแพทย์ประจำคลินิก, ผู้เชี่ยวชาญทันตกรรมย่อย", 
-        expertise: "คลินิกทันตกรรมและช่องปาก, การผ่าตัดเล็ก, การวินิจฉัยทางรังสี", 
-        quote: "สุขภาพช่องปากที่ดี คือจุดเริ่มต้นของการมีชีวิตที่แข็งแรง อย่าละเลยปัญหากลิ่นปากของเพื่อนรัก", 
-        imageSrc: "/assets/Nut.png" 
-      },
-      { 
-        name: "สพ.น. ณัฐพงศ์ ศิริรัตน์", nickname: "หมอณัฐ", role: "สัตวแพทย์ประจำคลินิก, ผู้เชี่ยวชาญทันตกรรมย่อย", 
-        expertise: "คลินิกทันตกรรมและช่องปาก, การผ่าตัดเล็ก, การวินิจฉัยทางรังสี", 
-        quote: "สุขภาพช่องปากที่ดี คือจุดเริ่มต้นของการมีชีวิตที่แข็งแรง อย่าละเลยปัญหากลิ่นปากของเพื่อนรัก", 
-        imageSrc: "/assets/Nut.png" 
-      },
-    ];
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const res = await fetch('/api/doctors');
+        if (res.ok) {
+          const data = await res.json();
+          setDoctors(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch doctors:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoctors();
+  }, []);
+
+  // เก็บ default doctors หากไม่มีใน MongoDB
+  const defaultDoctors: Doctor[] = [
+
+  ];
+
+  const displayDoctors = doctors.length > 0 ? doctors : defaultDoctors;
 
     return (
         <section className="content-section doctors-page page-animate">
@@ -36,11 +48,17 @@ export default function DoctorsPage() {
                 <h2 className="page-title">ทีมสัตวแพทย์ผู้เชี่ยวชาญที่ Pawplan</h2>
                 <p className="intro-text page-subtitle">ที่ Pawplan เราเชื่อว่าการดูแลที่ดีที่สุดต้องมาจากความเข้าใจและความเชี่ยวชาญเฉพาะด้าน ทีมสัตวแพทย์ของเราพร้อมวางแผนการดูแลสุขภาพที่ดีที่สุดให้กับเพื่อนรักของคุณ</p>
 
-                <div className="doctor-grid page-content">
-                    {doctors.map((doctor, index) => (
-                      <DoctorCard key={index} {...doctor} />
-                    ))}
-                </div>
+                {loading ? (
+                    <div className="doctor-grid page-content">
+                        <p>กำลังโหลด...</p>
+                    </div>
+                ) : (
+                    <div className="doctor-grid page-content">
+                        {displayDoctors.map((doctor, index) => (
+                          <DoctorCard key={index} {...doctor} />
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );

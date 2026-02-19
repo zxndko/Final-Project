@@ -168,21 +168,6 @@ export default function HomePage() {
                   </div>
                 </section>
 
-                {/* -------------------- 6. Team Section -------------------- */}
-                <section id="team" className="container section-team">
-                  <h2>ทีมสัตวแพทย์ของเรา</h2>
-                  <div className="team-grid">
-                    {quickTeam.map((vet, index) => (
-                        <article key={index} className="vet-card">
-                            <img src={vet.imageSrc} alt={vet.name} />
-                            <h4>{vet.name}</h4>
-                            <p>{vet.role}</p>
-                        </article>
-                    ))}
-                  </div>
-                  <Link href="/doctors" className="btn ghost">ดูทีมทั้งหมด</Link>
-                </section>
-
                 {/* -------------------- 7. Testimonials, Gallery, Location, FAQ, Contact Form -------------------- */}
                     <section id="location" className="container section-location">
                       <h2>แผนที่และที่ตั้ง</h2>

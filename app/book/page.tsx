@@ -1,9 +1,11 @@
 // app/book/page.tsx
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function BookPage() {
+    const router = useRouter();
     // สร้าง state สำหรับฟอร์ม
     const [formData, setFormData] = useState({
         service: '',
@@ -29,7 +31,7 @@ export default function BookPage() {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
         const service = formData.service === 'อื่นๆ' ? 
@@ -53,15 +55,43 @@ export default function BookPage() {
         setIsConfirmed(true);
     };
 
+    const handleConfirm = () => {
+        const service = formData.service === 'อื่นๆ' ? formData.otherService : formData.service;
+        const petType = formData.petType === 'อื่นๆ' ? formData.otherPetType : formData.petType;
+
+        const appointment = {
+            id: Date.now(),
+            patient: formData.owner,
+            service,
+            date: formData.date,
+            time: formData.time,
+            owner: formData.owner,
+            phone: formData.phone,
+            petName: formData.petName,
+            petType,
+            notes: formData.notes || '',
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+        };
+
+        // บันทึกลง localStorage
+        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+        appointments.push(appointment);
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+
+        alert('บันทึกนัดหมายสำเร็จ!');
+        router.push('/');
+    };
+
     return (
         <main className="content-section booking-page page-animate">
             <div className="container">
                 <h2 className="form-title page-title">📅 กรอกรายละเอียดจองนัดหมาย</h2>
 
                 <div className="booking-form-wrapper page-content">
-                    <form id="bookingForm" className="booking-form" 
+                    <form id="bookingForm" 
                           onSubmit={handleSubmit} 
-                          style={{ display: isConfirmed ? 'none' : 'block' }}>
+                          className={isConfirmed ? 'booking-form-hidden' : 'booking-form-visible'}>
                         <fieldset className="form-group">
                             <legend>ข้อมูลการนัดหมาย</legend>
                             <div className="form-row-2">
@@ -207,13 +237,25 @@ export default function BookPage() {
                 </div>
 
                 <div 
-                    className="confirmation-box" 
-                    style={{ display: isConfirmed ? 'block' : 'none', marginTop: '30px' }}
+                    className={isConfirmed ? 'confirmation-box-visible' : 'confirmation-box-hidden'}
                 >
                     <h3>✅ ยืนยันการจองเรียบร้อย!</h3>
                     <p>ทีมงานจะติดต่อกลับเพื่อยืนยันรายละเอียดนัดหมายอีกครั้ง</p>
                     <pre dangerouslySetInnerHTML={{ __html: summary.replace(/\n/g, '<br>') }}></pre>
-                    <Link href="/" className="cta-button big-cta">กลับหน้าแรก</Link>
+                    <div className="form-actions">
+                        <button 
+                            onClick={handleConfirm}
+                            className="cta-button big-cta"
+                        >
+                            ยืนยันและบันทึก
+                        </button>
+                        <button 
+                            onClick={() => setIsConfirmed(false)}
+                            className="btn-back"
+                        >
+                            ← แก้ไข
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>
