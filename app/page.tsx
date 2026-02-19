@@ -23,14 +23,26 @@ export default function HomePage() {
   
   return (
     <>
-      <section 
-        className="hero" 
-        style={{ backgroundImage: "linear-gradient(rgba(247, 249, 252, 0.7), rgba(247, 249, 252, 0.7)), url('/assets/first.png')",
-          backgroundSize: 'cover',backgroundPosition: 'center',backgroundRepeat: 'no-repeat'}}
-      >
-        <div className="container">
-            <h1>Pawplan | วางแผนเพื่อสุขภาพที่ดีที่สุดสำหรับเพื่อนรัก</h1>
-            <p>คลินิกสัตว์เลี้ยงที่เน้นเวชศาสตร์ป้องกันและบริการเฉพาะทางย่อย พร้อมแพทย์ผู้เชี่ยวชาญดูแลอย่างใกล้ชิด</p>
+      <section className="hero hero-premium">
+        <div className="container hero-layout">
+          <div className="hero-content">
+            <h1 className="hero-title">Pawplan</h1>
+            <p className="hero-subtitle">วางแผนเพื่อสุขภาพที่ดีที่สุดสำหรับเพื่อนรัก</p>
+            <p className="hero-description">
+              คลินิกสัตว์เลี้ยงที่เน้นเวชศาสตร์ป้องกันและบริการเฉพาะทางย่อย พร้อมแพทย์ผู้เชี่ยวชาญดูแลอย่างใกล้ชิด
+            </p>
+          </div>
+          
+          <div className="hero-image-wrapper">
+            <div className="hero-image-container">
+              <img 
+                src="/assets/1.png" 
+                alt="Pawplan Veterinary Clinic" 
+                className="hero-image"
+              />
+              <div className="hero-image-glow"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -172,34 +184,19 @@ export default function HomePage() {
                 </section>
 
                 {/* -------------------- 7. Testimonials, Gallery, Location, FAQ, Contact Form -------------------- */}
-                
-                <section id="testimonials" className="container section-testimonials">
-                  <h2>รีวิวผู้ใช้บริการ</h2>
-                  {/* หากต้องการให้เป็น Slider ต้องแยกเป็น Client Component และใช้ JS */}
-                  <div className="testimonial-slider" id="testimonialSlider">
-                    <blockquote className="testimonial">“ทีมงานดูแลดีมาก สัตว์เลี้ยงฉีดวัคซีนครบและติดตามผล” — คุณ A</blockquote>
-                    <blockquote className="testimonial">“บริการฉุกเฉินรวดเร็ว คืนชีพแมวของเราได้” — คุณ B</blockquote>
-                    <blockquote className="testimonial">“คลินิกสะอาด และอุปกรณ์ทันสมัย” — คุณ C</blockquote>
-                  </div>
-                </section>
-
-                <section id="gallery" className="container section-gallery">
-                  <h2>แกลเลอรี</h2>
-                  <div className="gallery-grid">
-                    <img src="/assets/gallery1.jpg" alt="gallery1" />
-                    <img src="/assets/gallery2.jpg" alt="gallery2" />
-                    <img src="/assets/gallery3.jpg" alt="gallery3" />
-                    <img src="/assets/gallery4.jpg" alt="gallery4" />
-                  </div>
-                </section>
-
-                <section id="location" className="container section-location">
-                  <h2>แผนที่และที่ตั้ง</h2>
-                  <div className="map-wrap">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18..." width="100%" height={300} style={{ border: 0 }} allowFullScreen={true} loading="lazy"></iframe>
-                  </div>
-                </section>
-
+                    <section id="location" className="container section-location">
+                      <h2>แผนที่และที่ตั้ง</h2>
+                      <div className="map-wrap">
+                        <iframe
+                          src="https://www.google.com/maps?q=Rangsit+University&output=embed"
+                          width="100%"
+                          height={300}
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                    </section>
                 <section id="faq" className="container section-faq">
                   <h2>คำถามที่พบบ่อย</h2>
                   <div className="faq-item">

@@ -13,14 +13,14 @@ export default function NewsActivitiesPage() {
 
     return (
         <>
-            <section className="content-section news-page">
+            <section className="content-section news-page page-animate">
                 <div className="container">
-                    <h2>🔔 ข่าวสารและกิจกรรม</h2>
+                    <h2 className="page-title">🔔 ข่าวสารและกิจกรรม</h2>
                     <div className="section-deco">
                         <span className="decorative-bar" aria-hidden="true" />
                     </div>
                     <div className="news-container">
-                        <div className="news-grid">
+                        <div className="news-grid page-content">
 
                             {/* ข่าวที่ 1 */}
                             <NewsCard

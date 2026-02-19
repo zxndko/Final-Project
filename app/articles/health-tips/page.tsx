@@ -69,13 +69,13 @@ export default function DogArticlePage() {
 	);
 
 	return (
-		<section className="content-section dog-page">
+		<section className="content-section dog-page page-animate">
 			<div className="container">
-				<h2>Wellness Tips: เคล็ดลับสุขภาพและชีวิตยืนยาว</h2>
+				<h2 className="page-title">Wellness Tips: เคล็ดลับสุขภาพและชีวิตยืนยาว</h2>
 				<div className="section-deco">
 					<span className="decorative-bar" aria-hidden="true" />
 				</div>
-				<p className="intro-text">คู่มือการดูแลสัตว์เลี้ยงอย่างเข้าใจ เพื่อสุขภาพกายและใจที่ดีในทุกวัน เรียนรู้เคล็ดลับที่สัตวแพทย์ Pawplan อยากให้คุณรู้</p>
+				<p className="intro-text page-subtitle">คู่มือการดูแลสัตว์เลี้ยงอย่างเข้าใจ เพื่อสุขภาพกายและใจที่ดีในทุกวัน เรียนรู้เคล็ดลับที่สัตวแพทย์ Pawplan อยากให้คุณรู้</p>
 
 				{/* ใช้งาน CategoryTabs Component */}
 				<CategoryTabs
@@ -87,7 +87,7 @@ export default function DogArticlePage() {
 				<hr />
 
 				{/* ส่วนแสดงบทความที่ถูกกรอง */}
-				<div className="article-card-grid">
+				<div className="article-card-grid page-content">
 					{filteredArticles.length > 0 ? (
 						filteredArticles.map((article, index) => (
 							// ใช้งาน ArticleCard Component

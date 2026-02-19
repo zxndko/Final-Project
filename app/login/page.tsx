@@ -26,9 +26,9 @@ export default function LoginPage() {
     };
 
     return (
-        <section className="content-section login-page" style={{ backgroundColor: 'var(--bg-light)', padding: '80px 0' }}>
+        <section className="content-section login-page page-animate" style={{ backgroundColor: 'var(--bg-light)', padding: '80px 0' }}>
             <div className="container">
-                <div className="login-container">
+                <div className="login-container page-content">
                     <h2>เข้าสู่ระบบ Pawplan <br />(สำหรับเจ้าหน้าที่)</h2>
                     
                     <div id="errorMessage" style={{ color: '#dc3545', marginBottom: '15px', fontWeight: 600, display: error ? 'block' : 'none' }}>

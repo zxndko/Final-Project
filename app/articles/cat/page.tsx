@@ -63,13 +63,13 @@ export default function DogArticlePage() {
 	);
 
 	return (
-		<section className="content-section dog-page">
+		<section className="content-section dog-page page-animate">
 			<div className="container">
-				<h2>🐱 Cat Articles : บทความสำหรับแมว</h2>
+				<h2 className="page-title">🐱 Cat Articles : บทความสำหรับแมว</h2>
 				<div className="section-deco">
 					<span className="decorative-bar" aria-hidden="true" />
 				</div>
-				<p className="intro-text">ข้อมูลเฉพาะสำหรับแมว โดยทีมสัตวแพทย์ที่เข้าใจพฤติกรรมของเหมียวอย่างแท้จริง มั่นใจด้วยการรับรอง Cat Friendly Gold Certification</p>
+				<p className="intro-text page-subtitle">ข้อมูลเฉพาะสำหรับแมว โดยทีมสัตวแพทย์ที่เข้าใจพฤติกรรมของเหมียวอย่างแท้จริง มั่นใจด้วยการรับรอง Cat Friendly Gold Certification</p>
 
 				{/* ใช้งาน CategoryTabs Component */}
 				<CategoryTabs
@@ -81,7 +81,7 @@ export default function DogArticlePage() {
 				<hr />
 
 				{/* ส่วนแสดงบทความที่ถูกกรอง */}
-				<div className="article-card-grid">
+				<div className="article-card-grid page-content">
 					{filteredArticles.length > 0 ? (
 						filteredArticles.map((article, index) => (
 							// ใช้งาน ArticleCard Component

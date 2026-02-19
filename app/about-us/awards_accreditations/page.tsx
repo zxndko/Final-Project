@@ -2,11 +2,11 @@ import AwardsSlider from '@/components/AwardsSlider'; // 1. Import Client Compon
 
 export default function AwardsPage() {
     return (
-        <section className="content-section awards_accreditations-page">
+        <section className="content-section awards_accreditations-page page-animate">
             <div className="content-container">
-                <h2>🏆 รางวัลและการรับรอง</h2>
+                <h2 className="page-title">🏆 รางวัลและการรับรอง</h2>
                 <div className="divider"></div>
-                <p>มุ่งสู่ความเป็นเลิศ ในการดูแลสุขภาพและยกระดับคุณภาพชีวิตสัตว์เลี้ยง</p>
+                <p className="intro-text page-subtitle">มุ่งสู่ความเป็นเลิศ ในการดูแลสุขภาพและยกระดับคุณภาพชีวิตสัตว์เลี้ยง</p>
 
 
                 <AwardsSlider />

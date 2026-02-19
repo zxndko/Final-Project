@@ -2,10 +2,10 @@ import Image from 'next/image';
 
 export default function HistoryMissionPage() {
     return (
-        <section className="content-section history-page">
+        <section className="content-section history-page page-animate">
             <div className="container">
-                <h2>📄 ประวัติและพันธกิจ</h2>
-                <p className="intro-text">รู้จัก Pawplan คลินิกสัตว์เลี้ยง</p>
+                <h2 className="page-title">📄 ประวัติและพันธกิจ</h2>
+                <p className="intro-text page-subtitle">รู้จัก Pawplan คลินิกสัตว์เลี้ยง</p>
 
                 <div className="image-history-box">
                     <div className="history-image">
