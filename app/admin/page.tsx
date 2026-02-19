@@ -2,7 +2,6 @@
 'use client';
 import Link from 'next/link';
 import HideHeader from '@/components/HideHeader';
-import HideFooter from '@/components/HideFooter';
 
 export default function AdminPanelPage() {
     // สถิติตัวอย่าง
@@ -31,9 +30,23 @@ export default function AdminPanelPage() {
     ];
 
     return (
-        <section className="admin-dashboard">
+        <section className="admin-dashboard page-animate">
             <HideHeader />
-            <HideFooter />
+            {/* Header Section */}
+            <div className="admin-dashboard-header page-header">
+                <div className="container">
+                    <div className="admin-header-content">
+                        <div>
+                            <h1>🏥 Admin Panel</h1>
+                            <p>ยินดีต้อนรับสู่ศูนย์บริหารคลินิก Pawplan</p>
+                        </div>
+                        <div className="admin-header-badge">
+                            <span>🔐 ผู้ดูแลระบบ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <HideHeader />
 
             <div className="container">
                 {/* Statistics Section */}
@@ -82,20 +95,18 @@ export default function AdminPanelPage() {
                     </div>
                 </div>
 
-                <div className="admin-actions">
-                    <Link href="/admin/appointment" className="action-card">
-                        <h3>จัดการนัดหมาย</h3>
-                        <p>ดูและอนุมัติการจองนัดหมาย</p>
-                    </Link>
-
-                    <Link href="/admin/docters" className="action-card">
-                        <h3>จัดการบัญชีผู้ใช้</h3>
-                        <p>เพิ่ม แก้ไข หรือลบข้อมูลหมอ</p>
-                    </Link>
-
-                    <div className="action-card">
-                        <h3>จัดการหน้าเว็บไซต์</h3>
-                        <p>เพิ่ม แก้ไข ลบ หรืออัพเดทข้อมูล</p>
+                {/* Quick Info */}
+                <div className="admin-info-section">
+                    <div className="info-card">
+                        <div className="info-card-icon">ℹ️</div>
+                        <div className="info-card-content">
+                            <h3>เคล็ดลับการใช้งาน</h3>
+                            <ul>
+                                <li>ตรวจสอบนัดหมายใหม่ทุกวัน</li>
+                                <li>อัปเดตข้อมูลแพทย์อย่างสม่ำเสมอ</li>
+                                <li>ดูประวัติการจองเพื่อติดตามลูกค้า</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
