@@ -1,9 +1,8 @@
 'use client';
-
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import HideHeader from '@/components/HideHeader';
+import HideFooter from '@/components/HideFooter';
+import AdminSidebar from '@/components/AdminSidebar';
 
 interface Appointment {
   id: number;
@@ -20,226 +19,284 @@ interface Appointment {
   createdAt?: string;
 }
 
+interface NewAppointmentForm {
+  patientName: string;
+  date: string;
+  doctor: string;
+  status: string;
+  reason: string;
+  notes: string;
+}
+
 export default function AppointmentPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [selected, setSelected] = useState<Appointment | null>(null);
+  const [filteredAppointments, setFilteredAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [activeMenu, setActiveMenu] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [form, setForm] = useState<NewAppointmentForm>({
+    patientName: '',
+    date: new Date().toISOString().split('T')[0],
+    doctor: '',
+    status: 'pending',
+    reason: '',
+    notes: '',
+  });
 
-  // Fetch appointments from localStorage
   useEffect(() => {
-    const loadAppointments = () => {
-      try {
-        const data = JSON.parse(localStorage.getItem('appointments') || '[]');
-        setAppointments(data.filter((a: Appointment) => a.status !== 'confirmed'));
-      } catch (error) {
-        console.error('Failed to load appointments:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadAppointments();
+    try {
+      const data = JSON.parse(localStorage.getItem('appointments') || '[]');
+      setAppointments(data);
+    } catch (error) {
+      console.error('Failed to load appointments:', error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const handleClear = (item: Appointment) => {
-    if (!confirm('ยืนยันนัดหมายนี้หรือไม่?')) return;
-    
-    try {
-      const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-      const updated = appointments.map((a: Appointment) =>
-        a.id === item.id ? { ...a, status: 'confirmed' } : a
+  useEffect(() => {
+    let filtered = appointments;
+    if (filterStatus !== 'all') filtered = filtered.filter(a => a.status === filterStatus);
+    if (searchTerm) {
+      filtered = filtered.filter(a =>
+        a.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        a.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        a.phone.includes(searchTerm) ||
+        a.service.toLowerCase().includes(searchTerm.toLowerCase())
       );
+    }
+    setFilteredAppointments(filtered);
+  }, [appointments, searchTerm, filterStatus]);
+
+  const handleSaveAppointment = (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const all = JSON.parse(localStorage.getItem('appointments') || '[]');
+      const newAppt: Appointment = {
+        id: Date.now(),
+        patient: form.patientName,
+        petName: form.patientName,
+        petType: '',
+        service: form.reason,
+        date: form.date,
+        time: '09:00',
+        owner: form.doctor,
+        phone: '',
+        notes: form.notes,
+        status: form.status,
+        createdAt: new Date().toISOString(),
+      };
+      const updated = [...all, newAppt];
       localStorage.setItem('appointments', JSON.stringify(updated));
-      
-      setAppointments((prev) => prev.filter((a) => a.id !== item.id));
-      setSelected(null);
-      alert('บันทึกเรียบร้อย');
+      setAppointments(updated);
+      setShowModal(false);
+      setForm({ patientName: '', date: new Date().toISOString().split('T')[0], doctor: '', status: 'pending', reason: '', notes: '' });
+    } catch (error) {
+      console.error('Save error:', error);
+    }
+  };
+
+  const handleStatusChange = (item: Appointment, newStatus: string) => {
+    try {
+      const all = JSON.parse(localStorage.getItem('appointments') || '[]');
+      const updated = all.map((a: Appointment) => a.id === item.id ? { ...a, status: newStatus } : a);
+      localStorage.setItem('appointments', JSON.stringify(updated));
+      setAppointments(updated);
+      setActiveMenu(null);
     } catch (error) {
       console.error('Update error:', error);
-      alert('เกิดข้อผิดพลาด');
     }
   };
 
   const handleDelete = (item: Appointment) => {
     if (!confirm('ลบนัดหมายนี้หรือไม่?')) return;
-    
     try {
-      const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-      const updated = appointments.filter((a: Appointment) => a.id !== item.id);
+      const all = JSON.parse(localStorage.getItem('appointments') || '[]');
+      const updated = all.filter((a: Appointment) => a.id !== item.id);
       localStorage.setItem('appointments', JSON.stringify(updated));
-      
-      setAppointments((prev) => prev.filter((a) => a.id !== item.id));
-      setSelected(null);
-      alert('ลบแล้ว');
+      setAppointments(updated);
+      setActiveMenu(null);
     } catch (error) {
       console.error('Delete error:', error);
-      alert('เกิดข้อผิดพลาด');
     }
   };
 
-  const filteredAppointments = appointments.filter(a =>
-    a.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    a.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    a.phone.includes(searchTerm) ||
-    a.service.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  // 4️⃣ JSX ต้องอยู่ใน return เท่านั้น
+  const getStatusColor = (status?: string) => {
+    switch (status) {
+      case 'confirmed': return '#10b981';
+      case 'cancelled': return '#ef4444';
+      default: return '#f59e0b';
+    }
+  };
+
+  const getStatusLabel = (status?: string) => {
+    switch (status) {
+      case 'confirmed': return 'Confirmed';
+      case 'cancelled': return 'Cancelled';
+      default: return 'Pending';
+    }
+  };
+
   return (
-    <section className="admin-page">
+    <div className="admin-layout">
       <HideHeader />
+      <div className="admin-container-new">
 
-      {/* Header Section */}
-      <div className="admin-header">
-        <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <h1>📅 รายการนัดหมายที่จอง</h1>
-              <p style={{ margin: '0.5rem 0 0 0', opacity: 0.95 }}>
-                มีทั้งหมด <strong>{appointments.length}</strong> รายการรอดำเนิน
-              </p>
-            </div>
-            <div className="admin-header-badge">✨ ระบบจัดการนัดหมาย</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="container">
-        {/* Stats Section */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
-          <div className="admin-card">
-            <div className="admin-card-header">
-              <div>
-                <div className="admin-card-title">📋 รอดำเนิน</div>
-                <div className="admin-card-subtitle">{appointments.length} รายการ</div>
-              </div>
-            </div>
-          </div>
-          <div className="admin-card">
-            <div className="admin-card-header">
-              <div>
-                <div className="admin-card-title">✅ รอดำเนิน</div>
-                <div className="admin-card-subtitle">พร้อมอนุมัติ</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <AdminSidebar />
 
         {/* Main Content */}
-        <div className="admin-section">
-          <h2>📋 รายการทั้งหมด</h2>
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-            <Link href="/admin">
-              <button className="admin-btn admin-btn-secondary">
-                ← กลับหน้าหลัก
-              </button>
-            </Link>
-            <Link href="/admin/history">
-              <button className="admin-btn admin-btn-primary">
-                📊 ดูประวัติ
-              </button>
-            </Link>
+        <div className="admin-content-new">
+
+          <div className="admin-header-new">
+            <div>
+              <h1>Appointments</h1>
+              <p>Manage patient visits and schedules.</p>
+            </div>
+            <button className="admin-btn admin-btn-primary" onClick={() => setShowModal(true)}>
+              + New Appointment
+            </button>
           </div>
+
+          <div className="appointments-toolbar">
+            <div className="search-box-new">
+              <span className="search-icon-new">🔍</span>
+              <input
+                type="text"
+                placeholder="Search patients..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input-new"
+              />
+            </div>
+            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="filter-select-new">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          <div className="table-container-new">
+            {loading ? (
+              <div className="table-empty">⏳ Loading appointments...</div>
+            ) : filteredAppointments.length === 0 ? (
+              <div className="table-empty">📭 No appointments found.</div>
+            ) : (
+              <table className="appointments-table">
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Date & Time</th>
+                    <th>Doctor</th>
+                    <th>Status</th>
+                    <th>Reason</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredAppointments.map((apt) => (
+                    <tr key={apt.id} className="table-row-hover">
+                      <td>
+                        <div className="table-pet-cell">
+                          <div className="pet-avatar">{apt.petName.charAt(0)}</div>
+                          <div>
+                            <div className="pet-name">{apt.petName}</div>
+                            <div className="owner-name">{apt.patient}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="date-time">
+                          <div className="date-value">{apt.date}</div>
+                          <div className="time-value">{apt.time}</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="doctor-cell">
+                          <div className="doctor-avatar">D</div>
+                          <span>Dr. {apt.owner}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="status-badge" style={{ backgroundColor: `${getStatusColor(apt.status)}20`, color: getStatusColor(apt.status) }}>
+                          {getStatusLabel(apt.status)}
+                        </span>
+                      </td>
+                      <td className="reason-cell">{apt.service || '-'}</td>
+                      <td className="actions-cell">
+                        <div className="actions-dropdown-container">
+                          <button className="actions-btn" onClick={() => setActiveMenu(activeMenu === apt.id ? null : apt.id)}>⋮</button>
+                          {activeMenu === apt.id && (
+                            <div className="dropdown-menu-new">
+                              {apt.status !== 'confirmed' && (
+                                <button className="dropdown-item confirm" onClick={() => handleStatusChange(apt, 'confirmed')}>✓ Confirm</button>
+                              )}
+                              {apt.status !== 'cancelled' && (
+                                <button className="dropdown-item cancel" onClick={() => handleStatusChange(apt, 'cancelled')}>✕ Cancel</button>
+                              )}
+                              <button className="dropdown-item delete" onClick={() => handleDelete(apt)}>🗑️ Delete</button>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+
         </div>
       </div>
-
-      <div className="container">
-        {loading ? (
-          <div className="admin-section" style={{ textAlign: 'center' }}>
-            <p>⏳ กำลังโหลดข้อมูล...</p>
-          </div>
-        ) : appointments.length === 0 ? (
-          <div className="admin-section" style={{ textAlign: 'center', padding: '3rem' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📭</div>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>ไม่มีนัดหมายที่รอดำเนิน</p>
-          </div>
-        ) : (
-          <div style={{ display: 'grid', gap: '1rem' }}>
-            {appointments.map((a) => (
-              <div
-                key={a.id}
-                className="admin-list-item"
-                onClick={() => setSelected(a)}
-                style={{ cursor: 'pointer', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
-              >
-                <div className="admin-list-item-info">
-                  <div className="admin-list-item-name">👤 {a.patient}</div>
-                  <div className="admin-list-item-detail">
-                    📅 {a.date} ⏰ {a.time} | 🐾 {a.petName} ({a.petType})
-                  </div>
-                  <div className="admin-list-item-detail">
-                    📞 {a.phone} | 🏥 {a.service}
-                  </div>
-                </div>
-                <span className="admin-status-badge admin-status-pending">รอดำเนิน</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <HideFooter />
 
       {/* Modal */}
-      {selected && (
-        <div className="modal-overlay" onClick={() => setSelected(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>🔍 รายละเอียดนัดหมาย</h2>
-              <button 
-                className="modal-close-btn"
-                onClick={() => setSelected(null)}
-              >
-                ✕
-              </button>
+      {showModal && (
+        <div className="appt-modal-overlay" onClick={() => setShowModal(false)}>
+          <form className="appt-modal" onSubmit={handleSaveAppointment} onClick={(e) => e.stopPropagation()}>
+            <div className="appt-modal__header">
+              <h2 className="appt-modal__title">New Appointment</h2>
+              <button type="button" className="appt-modal__close" onClick={() => setShowModal(false)}>✕</button>
             </div>
-
-            <div className="modal-body">
-              <div style={{ display: 'grid', gap: '1rem' }}>
-                <div className="admin-card">
-                  <div><strong>👤 ชื่อผู้จอง:</strong> {selected.patient}</div>
-                  <div style={{ marginTop: '0.5rem', color: 'var(--text-muted)' }}>📞 {selected.phone}</div>
-                </div>
-
-                <div className="admin-card">
-                  <div><strong>📅 วันที่:</strong> {selected.date}</div>
-                  <div><strong>⏰ เวลา:</strong> {selected.time}</div>
-                </div>
-
-                <div className="admin-card">
-                  <div><strong>🏥 บริการ:</strong> {selected.service}</div>
-                  <div><strong>🐾 สัตว์เลี้ยง:</strong> {selected.petName} ({selected.petType})</div>
-                </div>
-
-                <div className="admin-card">
-                  <div><strong>📝 หมายเหตุ:</strong> {selected.notes || 'ไม่มี'}</div>
-                </div>
+            <div className="appt-modal__field">
+              <label className="appt-modal__label">Patient Name</label>
+              <input required className="appt-modal__input" placeholder="Pet or Owner Name" value={form.patientName} onChange={(e) => setForm({ ...form, patientName: e.target.value })} />
+            </div>
+            <div className="appt-modal__row">
+              <div className="appt-modal__field">
+                <label className="appt-modal__label">Date</label>
+                <input type="date" required className="appt-modal__input" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
+              </div>
+              <div className="appt-modal__field">
+                <label className="appt-modal__label">Doctor</label>
+                <input className="appt-modal__input" placeholder="Select a doctor" value={form.doctor} onChange={(e) => setForm({ ...form, doctor: e.target.value })} />
               </div>
             </div>
-
-            <div className="modal-actions">
-              <button
-                className="admin-btn admin-btn-secondary"
-                onClick={() => setSelected(null)}
-              >
-                ❌ ยกเลิก
-              </button>
-
-              <button
-
-                className="btn-modal-confirm"
-                onClick={() => handleClear(selected)}
-              >
-                ✔️ ยืนยันนัดหมาย
-              </button>
-
-              <button
-                className="btn-modal-delete appointment-delete-btn"
-                onClick={() => handleDelete(selected)}
-              >
-                🗑️ ลบ
-              </button>
+            <div className="appt-modal__field">
+              <label className="appt-modal__label">Status</label>
+              <select className="appt-modal__input" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
             </div>
-          </div>
+            <div className="appt-modal__field">
+              <label className="appt-modal__label">Reason for Visit</label>
+              <input className="appt-modal__input" placeholder="Checkup, Vaccination, etc." value={form.reason} onChange={(e) => setForm({ ...form, reason: e.target.value })} />
+            </div>
+            <div className="appt-modal__field">
+              <label className="appt-modal__label">Internal Notes</label>
+              <textarea className="appt-modal__input appt-modal__textarea" placeholder="Additional notes..." value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+            </div>
+            <div className="appt-modal__footer">
+              <button type="button" className="admin-btn admin-btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+              <button type="submit" className="admin-btn admin-btn-primary">Save Appointment</button>
+            </div>
+          </form>
         </div>
       )}
-    </section>
+    </div>
   );
 }
