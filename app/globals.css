@@ -1,8 +1,6 @@
 :root {
-    --main-blue: #0a6edc;
-    /* ฟ้าหลัก: สดใสและเป็นมืออาชีพ */
-    --accent-blue: #0854a8;
-    /* ฟ้าเข้ม: เน้น CTA และหัวข้อหลัก */
+    --main-blue: #34adba;
+    --accent-blue: #248f9b;
     --bg-white: #FFFFFF;
     /* สีขาวสะอาด */
     --bg-light: #F8F9FA;
@@ -24,8 +22,10 @@
 body {
     font-family: var(--font-family);
     line-height: 1.6;
+    margin: 0;
     color: var(--text-dark);
-    background-color: var(--bg-white);
+    background-color: #e0f2fe;
+
 }
 
 a {
@@ -45,23 +45,19 @@ h3 {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    background-color: transparent;
 }
 
-/* -------------------- Button & Action Utility -------------------- */
-.cta-button {
-    background-color: var(--main-blue);
-    color: white !important;
-    padding: 12px 25px;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: background-color 0.3s, transform 0.1s;
-    white-space: nowrap;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+:root {
+    /* กำหนดตัวแปรสีใหม่ตามที่คุณต้องการ */
+    --font-color-main: #248f9b;
+    --icon-color-main: #34adba;
 }
 
-.cta-button:hover {
-    background-color: var(--accent-blue);
-    transform: translateY(-1px);
+
+svg {
+    stroke: var(--icon-color-main);
+
 }
 
 
@@ -274,7 +270,7 @@ header {
 
 /* A. Hero Section */
 .hero {
-    background: linear-gradient(rgba(247, 249, 252, 0.98), rgba(247, 249, 252, 0.98)), url('https://via.placeholder.com/1200x500/0a6edc/FFFFFF?text=Pawplan+Hero+Image');
+
     background-size: cover;
     background-position: center;
     padding: 150px 0;
@@ -321,7 +317,6 @@ header {
 
 /* Premium Hero Section */
 .hero-premium {
-    background: white;
     padding: 100px 0;
     position: relative;
     overflow: hidden;
@@ -334,7 +329,6 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(10, 110, 220, 0.02) 0%, rgba(10, 110, 220, 0.01) 100%);
     pointer-events: none;
 }
 
@@ -696,10 +690,17 @@ header {
 }
 
 .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     font-size: 3rem;
     color: var(--main-blue);
-    display: block;
-    margin-bottom: 10px;
+
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px auto;
+
     transition: all 0.4s ease;
     animation: fadeInDown 0.8s ease-out;
 }
@@ -728,7 +729,7 @@ header {
 .feature-content p {
     font-size: 1rem;
     color: var(--text-muted);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     transition: color 0.3s ease;
     line-height: 1.6;
 }
@@ -757,27 +758,22 @@ header {
 
 /* D. Simple Services Grid */
 .services {
-    background-color: var(--bg-light);
+    background-color: #f0f7ff;
+    /* ปรับพื้นหลังทั้งเว็บเป็นสีฟ้าอ่อน */
     padding: 80px 0;
 }
 
-.services h2 {
-    animation: fadeInDown 0.8s ease-out;
-}
-
-.service-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-}
-
 .service-card {
-    background-color: var(--bg-white);
+    background-color: #ffffff;
+    /* ขอบสีขาว */
     padding: 40px 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    /* ปรับขอบให้มน 24px ตามที่ต้องการ */
+    box-shadow: 0 8px 25px rgba(36, 143, 155, 0.1);
+    /* เงาสี Teal จางๆ ให้ดูละมุน */
     text-align: center;
-    border-bottom: 4px solid var(--main-blue);
+    /* เปลี่ยนเส้นขอบล่างเป็นสี 248f9b */
+    border-bottom: 4px solid #248f9b;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     animation: fadeInUp 0.8s ease-out;
     animation-fill-mode: both;
@@ -785,22 +781,7 @@ header {
     overflow: hidden;
 }
 
-.service-card:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.service-card:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.service-card:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
-.service-card:nth-child(4) {
-    animation-delay: 0.4s;
-}
-
+/* Hover Effect: ปรับให้สอดคล้องกับโทนสีใหม่ */
 .service-card::before {
     content: '';
     position: absolute;
@@ -808,24 +789,39 @@ header {
     left: -100%;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, transparent, var(--main-blue), transparent);
+    background: linear-gradient(90deg, transparent, #34adba, transparent);
     transition: left 0.6s ease;
-}
-
-.service-card:hover::before {
-    left: 100%;
 }
 
 .service-card:hover {
     transform: translateY(-15px) scale(1.03);
-    box-shadow: 0 25px 50px rgba(10, 110, 220, 0.2);
-    border-bottom-color: var(--accent-blue);
+    /* เงาเวลา Hover ให้เป็นโทนสี Teal */
+    box-shadow: 0 25px 50px rgba(36, 143, 155, 0.2);
+    border-bottom-color: #34adba;
+    /* สีไอคอนเวลา Hover */
 }
 
+/* ปรับสีหัวข้อ (h3) เป็น 248f9b */
 .service-card h3 {
-    color: var(--accent-blue);
+    color: #248f9b;
     margin-bottom: 15px;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    /* ปรับขนาดให้สมดุลกับ 4 การ์ดต่อแถว */
+    font-weight: 600;
+}
+
+/* ปรับสีรายละเอียด (p) ให้เป็นโทนเดียวกัน */
+.service-card p {
+    color: #248f9b;
+    opacity: 0.9;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ปรับสีไอคอนข้างใน (ถ้ามีคลาส icon) */
+.service-card .icon {
+    color: #34adba;
+    margin-bottom: 20px;
 }
 
 /* E. About Clinic / Doctor Intro */
@@ -837,7 +833,7 @@ header {
     display: flex;
     align-items: center;
     gap: 80px;
-    background: linear-gradient(135deg, var(--bg-light) 0%, rgba(10, 110, 220, 0.05) 100%);
+    background: #ffffff;
     padding: 80px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -859,7 +855,7 @@ header {
     text-align: left;
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     color: var(--accent-blue);
     transition: color 0.3s ease;
 }
@@ -1365,6 +1361,289 @@ header {
     background-color: var(--main-blue);
 }
 
+/* ================================================
+   SHOP PAGE — Pawplan Shop (LINE QR)
+   วางต่อท้าย globals.css
+   ================================================ */
+
+/* ===== SECTION ===== */
+.shop-page {
+    min-height: 80vh;
+    padding: 80px 0 100px;
+    background: linear-gradient(160deg, #e8f4fd 0%, #f5fbff 40%, #eaf7f2 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* Decorative blobs */
+.shop-page__bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.5;
+    filter: blur(80px);
+}
+
+.shop-page__bg-blob--1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(10, 110, 220, 0.12), transparent);
+    top: -150px;
+    right: -100px;
+}
+
+.shop-page__bg-blob--2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(6, 199, 85, 0.1), transparent);
+    bottom: -100px;
+    left: -80px;
+}
+
+/* ===== CONTAINER ===== */
+.shop-page__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== HEADER ===== */
+.shop-page__label {
+    display: inline-block;
+    background: rgba(10, 110, 220, 0.1);
+    color: var(--main-blue);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    animation: shopFadeDown 0.6s ease both;
+}
+
+.shop-page__title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+    margin-bottom: 10px;
+    line-height: 1.1;
+    animation: shopFadeDown 0.6s ease 0.08s both;
+}
+
+.shop-page__subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--main-blue);
+    margin-bottom: 16px;
+    animation: shopFadeDown 0.6s ease 0.14s both;
+}
+
+.shop-page__desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 48px;
+    animation: shopFadeUp 0.6s ease 0.2s both;
+}
+
+/* ===== QR CARD ===== */
+.shop-qr-card {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 48px 48px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow:
+        0 4px 24px rgba(10, 110, 220, 0.08),
+        0 1px 4px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(10, 110, 220, 0.08);
+    position: relative;
+    animation: shopFadeUp 0.6s ease 0.25s both;
+}
+
+/* Decorative ring behind card */
+.shop-qr-card__ring {
+    position: absolute;
+    inset: -16px;
+    border-radius: 36px;
+    border: 2px dashed rgba(10, 110, 220, 0.12);
+    pointer-events: none;
+}
+
+/* QR Image wrapper */
+.shop-qr-card__image-wrap {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 24px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 4px solid var(--main-blue);
+    box-shadow: 0 8px 24px rgba(10, 110, 220, 0.2);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.shop-qr-card__image-wrap:hover {
+    transform: scale(1.04);
+    box-shadow: 0 16px 40px rgba(10, 110, 220, 0.25);
+}
+
+.shop-qr-card__qr {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Scan text */
+.shop-qr-card__scan-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+}
+
+/* ===== LINE BUTTON ===== */
+.shop-line-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px 24px;
+    background: #06C755;
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease;
+    box-shadow: 0 6px 20px rgba(6, 199, 85, 0.35);
+}
+
+.shop-line-btn:hover {
+    background: #05b34c;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(6, 199, 85, 0.4);
+    color: #ffffff;
+}
+
+/* ===== DIVIDER ===== */
+.shop-qr-card__divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: #d1d5db;
+    font-size: 0.85rem;
+}
+
+.shop-qr-card__divider::before,
+.shop-qr-card__divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.shop-qr-card__divider span {
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+/* ===== FEATURES ===== */
+.shop-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.shop-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f9fafb;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.shop-feature:hover {
+    background: #f0f9f5;
+}
+
+.shop-feature__icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* ===== FOOTER NOTE ===== */
+.shop-page__note {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    animation: shopFadeUp 0.6s ease 0.35s both;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes shopFadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shopFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .shop-page {
+        padding: 60px 0 80px;
+    }
+
+    .shop-page__title {
+        font-size: 2.2rem;
+    }
+
+    .shop-qr-card {
+        padding: 36px 28px 32px;
+        margin: 0 16px;
+    }
+
+    .shop-qr-card__image-wrap {
+        width: 180px;
+        height: 180px;
+    }
+}
+
 
 /*======================================================*/
 /* 8. FOOTER STYLES */
@@ -1618,8 +1897,13 @@ footer ul a:hover {
     }
 }
 
+.section-location {
+    padding: 30px 0;
+    margin-bottom: 40px;
+}
+
 /* New sections: CTA / Team / Testimonials / Gallery / FAQ / Contact */
-.section-team,
+/* .section-team,
 .section-testimonials,
 .section-gallery,
 .section-faq,
@@ -1630,16 +1914,15 @@ footer ul a:hover {
 }
 
 .cta-grid {
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
 }
 
 .cta-box {
     flex: 1;
     min-width: 220px;
-    background: #f7f7f7;
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
 }
@@ -1701,55 +1984,7 @@ footer ul a:hover {
     height: 120px;
     object-fit: cover;
     border-radius: 6px;
-}
-
-.faq-item {
-    margin-bottom: 10px;
-}
-
-.faq-q {
-    width: 100%;
-    text-align: left;
-    padding: 10px;
-    background: #eee;
-    border: 0;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.faq-a {
-    display: none;
-    padding: 10px;
-    background: #fafafa;
-    border-radius: 6px;
-    margin-top: 6px;
-}
-
-.contact-form .form-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-}
-
-@media (max-width:900px) {
-
-    .cta-grid,
-    .team-grid,
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        display: block;
-    }
-}
-
+} */
 
 /*======================================================*/
 /* 11. BOOKING.HTML STYLES */
@@ -2079,6 +2314,7 @@ footer ul a:hover {
 
 /* 3. การ์ดข่าวแต่ละใบ */
 .news-card {
+    background-color: #ffffff;
     border: 1px solid #e0e0e0;
     /* เส้นขอบสีเทาอ่อน */
     border-radius: 8px;
@@ -2142,7 +2378,7 @@ footer ul a:hover {
     display: inline-block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #007bff;
+    color: 248f9b;
     /* สีลิงก์ (สีฟ้า) */
     text-decoration: none;
     /* ไม่ขีดเส้นใต้ */
@@ -2515,11 +2751,12 @@ footer ul a:hover {
     margin-bottom: 50px;
 }
 
-.awards-section .divider,
+.awards-section,
+.divider,
 .awards_accreditations-page .divider {
     width: 400px;
     height: 7px;
-    background-color: #2979ff;
+    background-color: #34adba;
     margin: 0 auto 25px auto;
     border-radius: 2px;
 }
@@ -2566,14 +2803,18 @@ footer ul a:hover {
 .awards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 100px;
     align-items: start;
 }
 
 /* --- การ์ดรางวัลแต่ละอัน (รวมสไตล์ที่ซ้ำซ้อนแล้ว) --- */
 .award-item {
     background-color: #ffffff;
-    padding: 20px;
+    padding: 30px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .award-image-box {
@@ -3012,7 +3253,6 @@ footer ul a:hover {
 /* ================================================= */
 .content-section.dog-page {
     padding: 40px 0;
-    background-color: #f9f9f9;
 }
 
 .content-section.dog-page .container {
@@ -3044,9 +3284,7 @@ footer ul a:hover {
     gap: 10px;
     margin-bottom: 30px;
     padding: 10px;
-    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .content-section.dog-page .category-button {
@@ -3063,15 +3301,15 @@ footer ul a:hover {
 }
 
 .content-section.dog-page .category-button:hover {
-    background-color: #93c7ffcf;
+    background-color: #80d5c4cf;
     color: #333;
-    border-color: #93c7ffcf;
+    border-color: #80d5c4cf;
 }
 
 .content-section.dog-page .category-button.active {
-    background-color: #0a6edc;
+    background-color: #248f9b;
     color: #ffffff;
-    border-color: #0a6edc;
+    border-color: #248f9b;
     font-weight: 700;
     box-shadow: 0 2px 8px rgba(242, 139, 36, 0.4);
 }
@@ -5288,6 +5526,87 @@ footer ul a:hover {
     background: #c82333;
 }
 
+/* ===== DOCTORS MODAL — FIELDS เพิ่มใหม่ ===== */
+/* วางต่อท้าย globals.css หรือ doctors-admin.css */
+
+/* Close button */
+.doctors-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.doctors-modal__close {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    line-height: 1;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+
+.doctors-modal__close:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+/* Hint text (คั่นด้วยจุลภาค) */
+.doctors-modal__hint {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* Textarea (Bio) */
+.doctors-modal__textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Scrollable modal */
+.doctors-modal {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Available Days — pill buttons */
+.doctors-modal__days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.doctors-modal__day-btn {
+    padding: 6px 14px;
+    border-radius: 50px;
+    border: 1.5px solid #d1d5db;
+    background: #f9fafb;
+    color: #374151;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-family);
+    transition: all 0.18s ease;
+}
+
+.doctors-modal__day-btn:hover {
+    border-color: #7ec1a3;
+    color: #3d9b7a;
+    background: #f0f9f5;
+}
+
+.doctors-modal__day-btn.active {
+    background: #7ec1a3;
+    border-color: #7ec1a3;
+    color: #ffffff;
+}
+
 /* ==================== SKELETON LOADING ==================== */
 
 .doctor-skeleton {
@@ -5661,7 +5980,7 @@ footer ul a:hover {
 
 .content-post-card__excerpt {
     font-size: 0.9rem;
-    color: #6b7280;
+    color: #6b8076;
     line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -5875,4 +6194,662 @@ footer ul a:hover {
     background-size: 200% 100%;
     animation: skeleton-shimmer 1.5s infinite;
     border-radius: 16px;
+}
+
+/* ========================================
+   HEADER MOTION STYLES
+   วางไว้ที่ styles/header.css
+   แล้ว import ใน Header.tsx:
+   import '@/styles/header.css';
+   ======================================== */
+
+/* ===== LOGO ===== */
+.hdr-logo {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s;
+}
+
+.hdr-logo:hover {
+    transform: scale(1.07) rotate(-1deg);
+    color: var(--main-blue);
+}
+
+/* ===== NAV LINKS ===== */
+.hdr-navlink {
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.hdr-navlink::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    background: var(--main-blue);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hdr-navlink:hover,
+.hdr-navlink.open {
+    color: var(--main-blue);
+}
+
+.hdr-navlink:hover::after,
+.hdr-navlink.open::after {
+    transform: scaleX(1);
+}
+
+/* ===== ARROW ===== */
+/* .hdr-arrow {
+    font-size: 0.55em;
+    opacity: 0.75;
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hdr-navlink.open .hdr-arrow {
+    transform: rotate(180deg);
+} */
+
+/* ===== DROPDOWN WRAP ===== */
+.hdr-dropdown-wrap {
+    position: relative;
+}
+
+/* ===== DROPDOWN PANEL ===== */
+.hdr-dropdown {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: #fff;
+    min-width: 220px;
+    border-top: 3px solid var(--main-blue);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+    z-index: 1001;
+
+    /* closed state */
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+    pointer-events: none;
+    transition:
+        opacity 0.22s ease,
+        transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hdr-dropdown.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* ===== DROPDOWN ITEMS (stagger) ===== */
+.hdr-dropdown li {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease;
+    transition-delay: calc(var(--i, 0) * 0.04s);
+}
+
+.hdr-dropdown.visible li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hdr-dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.97rem;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.15s, color 0.15s, padding-left 0.2s;
+}
+
+.hdr-dropdown li:last-child .hdr-dropdown-item {
+    border-bottom: none;
+}
+
+.hdr-dropdown-item:hover {
+    background: #f0f7ff;
+    color: var(--main-blue);
+    padding-left: 26px;
+}
+
+/* ===== LOGIN ICON ===== */
+.hdr-login {
+    font-size: 2rem;
+    color: var(--accent-blue);
+    cursor: pointer;
+    opacity: 0.55;
+    text-decoration: none;
+    display: inline-flex;
+    line-height: 1;
+
+}
+
+.hdr-login:hover {
+    opacity: 1;
+    color: var(--main-blue);
+}
+
+/* Container สำหรับกลุ่ม Card */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 20px 0;
+}
+
+/* ตัว Card หลัก */
+.service-card-modern {
+    background: #ffffff;
+    border: 1.5px solid #eef2f6;
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.service-card-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(30, 58, 138, 0.08);
+    /* เงาสีน้ำเงินจางๆ */
+    border-color: #dbeafe;
+}
+
+/* ส่วนหัว: ไอคอน + ชื่อบริการ */
+.service-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.service-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    /* สีน้ำเงินหลัก */
+}
+
+.service-card-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #248f9b;
+    margin: 0;
+}
+
+.service-card-description {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.service-card-accent {
+    position: absolute;
+    bottom: 0;
+    left: 32px;
+    right: 32px;
+    height: 4px;
+    background: linear-gradient(90deg, #248f9b, #34adba);
+    border-radius: 10px 10px 0 0;
+    opacity: 0.8;
+}
+
+.cta-clean-section {
+    padding: 60px 0;
+}
+
+.cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.cta-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.cta-card:hover {
+    border-color: #e2e8f0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transform: translateY(-4px);
+
+}
+
+.cta-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.cta-header h3 {
+    font-size: 1.4rem;
+    color: #248f9b;
+    margin: 0;
+}
+
+/* ปุ่ม */
+.btn-primary-blue {
+    margin-top: auto;
+    background: #34adba;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Emergency Card Specific */
+.emergency-border {
+    border-top: 4px solid #ef4444;
+    /* ขอบแดงด้านบนตามรูป */
+}
+
+.phone-num {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ef4444;
+    margin-bottom: 8px;
+}
+
+.badge-red {
+    background: #fee2e2;
+    color: #ef4444;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Link List */
+.cta-link-list {
+    list-style: none;
+    padding: 0;
+}
+
+.cta-link-list li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+}
+
+.cta-link-list li a:hover {
+    color: #2563eb;
+}
+
+/* ---------------- FAQ Style --------------------- */
+.faq-section {
+    padding: 40px 0;
+    background: #ffffff;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.section-header-left {
+    font-size: 1.8rem;
+    color: #34adba;
+    margin-bottom: 10px;
+
+}
+
+.header-line {
+    width: 210px;
+    height: 4px;
+    background: #34adba;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.faq-item-box {
+    background: #f8f9fa;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #edf2f7;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item-box.active {
+    background: #ffffff;
+    border-color: #34adba;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.08);
+}
+
+.faq-question-btn {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #334155;
+    text-align: left;
+    font-family: inherit;
+}
+
+.faq-chevron {
+    transition: transform 0.4s ease;
+    color: #94a3b8;
+    flex-shrink: 0;
+
+}
+
+.faq-item-box.active .faq-chevron {
+    transform: rotate(180deg);
+    color: #2563eb;
+}
+
+.faq-answer-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease;
+    opacity: 0;
+}
+
+/* แสดงคำตอบเมื่อ Active */
+.faq-item-box.active .faq-answer-content {
+    max-height: 500px;
+    /* เพิ่มความสูงให้ครอบคลุมเนื้อหา */
+    padding: 0 24px 24px 24px;
+    opacity: 1;
+}
+
+/* ตกแต่งเนื้อหาข้างในคำตอบ */
+.faq-answer-content p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.6;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 15px;
+}
+
+/*------------- Contact Card Modern -----------------*/
+:root {
+    --primary-blue: #1e3a8a;
+    --dark-blue: #172554;
+    --border-color: #e2e8f0;
+    --text-main: #334155;
+}
+
+.contact-section {
+    padding: 80px 20px;
+    background-color: var(--light-bg);
+    display: flex;
+    justify-content: center;
+}
+
+.contact-card-wrapper {
+    display: flex;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* ฝั่งซ้าย - Info Panel */
+.contact-info-panel {
+    flex: 0 0 35%;
+    background: linear-gradient(135deg, #72cfa2, #34adba 100%);
+    color: white;
+    padding: 50px 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info-panel h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.subtitle {
+    opacity: 0.8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.meta-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ฝั่งขวา - Form Body */
+.modern-form-body {
+    flex: 1;
+    padding: 50px;
+}
+
+.form-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+    background: #fcfcfc;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: var(--primary-blue);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+}
+
+/* Button */
+.btn-send-now {
+    font-size: 1rem;
+    margin-top: 30px;
+    background-color: #6eb093;
+    color: #000000;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+
+.btn-send-now:hover {
+    background-color: #72cfa2;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-card-wrapper {
+        flex-direction: column;
+    }
+
+    .contact-info-panel {
+        padding: 40px 30px;
+    }
+
+    .form-input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+}
+
+
+
+/* Petcare.css */
+/* Pet Care Page Custom Styles */
+.pc-section {
+    padding: 80px 20px;
+}
+
+/* Grid & Cards */
+.pc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin: 50px 0;
+}
+
+.pc-card {
+    background: white;
+    padding: 40px 25px;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pc-card:hover {
+    transform: translateY(-8px);
+    border-color: #2dd4bf;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.pc-icon-box {
+    width: 64px;
+    height: 64px;
+    background: #f0fdfa;
+    color: #0d9488;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.pc-card:hover .pc-icon-box {
+    background: #0d9488;
+    color: white;
+    transform: scale(1.1);
+}
+
+.pc-card h3 {
+    font-size: 1.25rem;
+    color: #1e293b;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.pc-card p {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* Footer CTA */
+.pc-footer {
+    margin-top: 60px;
+    padding: 50px;
+    background: #f8fafc;
+    border-radius: 30px;
+}
+
+.pc-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #6eb093;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-top: 20px;
+}
+
+.pc-cta-btn:hover {
+    background: #0f766e;
+    box-shadow: 0 10px 15px -3px rgba(15, 118, 110, 0.3);
 }

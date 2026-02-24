@@ -42,24 +42,25 @@ export default function DoctorsPage() {
 
   const displayDoctors = doctors.length > 0 ? doctors : defaultDoctors;
 
-    return (
-        <section className="content-section doctors-page page-animate">
-            <div className="container">
-                <h2 className="page-title">ทีมสัตวแพทย์ผู้เชี่ยวชาญที่ Pawplan</h2>
-                <p className="intro-text page-subtitle">ที่ Pawplan เราเชื่อว่าการดูแลที่ดีที่สุดต้องมาจากความเข้าใจและความเชี่ยวชาญเฉพาะด้าน ทีมสัตวแพทย์ของเราพร้อมวางแผนการดูแลสุขภาพที่ดีที่สุดให้กับเพื่อนรักของคุณ</p>
+  return (
+    <section className="content-section doctors-page page-animate">
+      <div className="container">
+        <h2 className="page-title">ทีมสัตวแพทย์ผู้เชี่ยวชาญที่ Pawplan</h2>
+        <div className="divider"></div>
+        <p className="intro-text page-subtitle">ที่ Pawplan เราเชื่อว่าการดูแลที่ดีที่สุดต้องมาจากความเข้าใจและความเชี่ยวชาญเฉพาะด้าน ทีมสัตวแพทย์ของเราพร้อมวางแผนการดูแลสุขภาพที่ดีที่สุดให้กับเพื่อนรักของคุณ</p>
 
-                {loading ? (
-                    <div className="doctor-grid page-content">
-                        <p>กำลังโหลด...</p>
-                    </div>
-                ) : (
-                    <div className="doctor-grid page-content">
-                        {displayDoctors.map((doctor, index) => (
-                          <DoctorCard key={index} {...doctor} />
-                        ))}
-                    </div>
-                )}
-            </div>
-        </section>
-    );
+        {loading ? (
+          <div className="doctor-grid page-content">
+            <p>กำลังโหลด...</p>
+          </div>
+        ) : (
+          <div className="doctor-grid page-content">
+            {displayDoctors.map((doctor, index) => (
+              <DoctorCard key={index} {...doctor} />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

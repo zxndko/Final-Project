@@ -6,13 +6,14 @@ export default function AppointmentPage() {
         <section className="content-section appointment-page page-animate">
             <div className="container">
                 <h2 className="page-title">📅 ระบบจองนัดหมายออนไลน์ Pawplan</h2>
+                <div className="divider"></div>
                 <p className="intro-text page-subtitle">วางแผนการดูแลสุขภาพเพื่อนรักได้ง่าย ๆ เพียง 4 ขั้นตอน กรุณาเลือกบริการที่ต้องการ เพื่อให้เราเตรียมความพร้อมได้อย่างเต็มที่</p>
-                
+
                 <div className="steps-grid page-content">
                     <div className="step-card"><h3>ขั้นตอนที่ 1: เลือกบริการ</h3><p>ระบุความต้องการของคุณ (ตรวจสุขภาพ, วัคซีน, ทันตกรรม หรือ Pet Care)</p></div>
                     {/* ... (step-card อื่นๆ) ... */}
                 </div>
-                
+
                 <div className="important-notes center-text page-section">
                     <h3>🚨 ข้อควรรู้ก่อนวันนัดหมาย</h3>
                     <ul style={{ textAlign: 'left', display: 'inline-block' }}>

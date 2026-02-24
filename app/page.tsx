@@ -1,16 +1,35 @@
 // app/page.tsx
+
+'use client';
+import { useState } from 'react';
 import Link from 'next/link';
-import ServiceCard from '@/components/ServiceCard'; 
-import DoctorCard from '@/components/DoctorCard';   
+import ServiceCard from '@/components/ServiceCard';
+import DoctorCard from '@/components/DoctorCard';
+
+import {
+  Eye, Brain, HeartPulse, Radiation, Stethoscope, Bath,
+  HandPlatter, Calendar, ArrowRight, PhoneCall, Star, ChevronDown,
+  Send, MessageSquare, Mail
+} from 'lucide-react';
 
 export default function HomePage() {
-  
-  // ข้อมูลสำหรับ Service Card (ใช้ในส่วน Medical Services)
+  const [openFaq, setOpenFaq] = useState(null);
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
   const services = [
-    { icon: "🩺", title: "เวชศาสตร์ป้องกัน", description: "การฉีดวัคซีน, ตรวจสุขภาพประจำปี, ควบคุมปรสิต และการให้คำปรึกษาด้านโภชนาการ" },
-    { icon: "🦷", title: "คลินิกทันตกรรมย่อย", description: "บริการขูดหินปูน, ดูแลช่องปาก และให้คำแนะนำด้านการป้องกันโรคเหงือก" },
-    { icon: "🔬", title: "คลินิกโรคผิวหนัง", description: "วินิจฉัยและรักษาอาการแพ้, ผิวหนังอักเสบ และโรคผิวหนังเรื้อรัง" },
-    { icon: "✂️", title: "Pawplan Pet Care", description: "บริการอาบน้ำ ตัดขน ด้วยผลิตภัณฑ์คุณภาพ และบริการฝากเลี้ยงระยะสั้น" },
+    { icon: <Stethoscope size={32} className="text-[#248f9b]" />, title: "เวชศาสตร์ป้องกัน", description: "การฉีดวัคซีน, ตรวจสุขภาพประจำปี และการให้คำปรึกษาด้านโภชนาการ" },
+    { icon: <Brain size={32} className="text-[#248f9b]" />, title: "คลินิกทันตกรรมย่อย", description: "บริการขูดหินปูน ดูแลช่องปาก และป้องกันโรคเหงือก" },
+    { icon: <HeartPulse size={32} className="text-[#248f9b]" />, title: "คลินิกโรคหัวใจ", description: "วินิจฉัยและรักษาโรคหัวใจในสัตว์เลี้ยง" },
+    { icon: <Bath size={32} className="text-[#248f9b]" />, title: "Pawplan Pet Care", description: "บริการอาบน้ำ ตัดขน และบริการฝากเลี้ยงระยะสั้น" },
+    { icon: <HandPlatter size={32} className="text-[#248f9b]" />, title: "Other Services", description: "ฝังไมโครชิป และบริการอื่นๆ ที่ตอบโจทย์คุณ" },
+  ];
+
+  const faqData = [
+    { q: "ต้องเตรียมอะไรบ้างเมื่อต้องพาสัตว์เลี้ยงมาตรวจ?", a: "กรุณานำประวัติสุขภาพ/วัคซีน และตัวอย่างปัสสาวะ/อุจจาระ (ถ้ามี) เพื่อการวินิจฉัยที่แม่นยำ" },
+    { q: "วิธีติดต่อฉุกเฉินในเวลากลางคืน?", a: "ท่านสามารถโทรติดต่อเลขด่วน 24 ชม. ได้ที่เบอร์ 02-XXX-XXXX หรือช่องทาง Line Official" }
   ];
 
   // ข้อมูลสำหรับ Team Section (Quick CTA Team)
@@ -20,24 +39,26 @@ export default function HomePage() {
     { name: "สพ.ดร. ณัฐพงศ์ ศิริรัตน์", role: "ทันตกรรม", imageSrc: "/assets/Nut.png" },
     { name: "สพ.อริยา พงษ์ไพศาล", role: "โรคผิวหนังและภูมิแพ้", imageSrc: "/assets/Ari.png" },
   ];
-  
+
   return (
-    <>
+    <div className="homepage-wrapper">
+
       <section className="hero hero-premium">
         <div className="container hero-layout">
           <div className="hero-content">
             <h1 className="hero-title">Pawplan</h1>
-            <p className="hero-subtitle">วางแผนเพื่อสุขภาพที่ดีที่สุดสำหรับเพื่อนรัก</p>
+            <p className="hero-subtitle">สร้างความรู้สึกว่าคลินิกคือบ้านหลังที่สองของสัตว์เลี้ยง</p>
             <p className="hero-description">
-              คลินิกสัตว์เลี้ยงที่เน้นเวชศาสตร์ป้องกันและบริการเฉพาะทางย่อย พร้อมแพทย์ผู้เชี่ยวชาญดูแลอย่างใกล้ชิด
+              ดูแลสมาชิกครอบครัวด้วยหัวใจ วางแผนป้องกันทุกช่วงวัย
+              เพื่อสุขภาพที่แข็งแรงและรอยยิ้มที่สดใสของเพื่อนรัก
             </p>
           </div>
-          
+
           <div className="hero-image-wrapper">
             <div className="hero-image-container">
-              <img 
-                src="/assets/1.png" 
-                alt="Pawplan Veterinary Clinic" 
+              <img
+                src="/assets/1.png"
+                alt="Pawplan Veterinary Clinic"
                 className="hero-image"
               />
               <div className="hero-image-glow"></div>
@@ -48,176 +69,260 @@ export default function HomePage() {
 
       <div className="main-content-layout">
         <div className="container main-grid">
-            <main className="primary-content">
-                
-                {/* -------------------- 2. Specialized Features (แก้ไขโครงสร้าง Card แรกแล้ว) -------------------- */}
-                <section className="specialized-features" style={{ paddingTop: 0 }}>
-                    <h2 style={{ textAlign: 'left', marginBottom: '50px' }}>ศูนย์เฉพาะทางที่พร้อมให้บริการคุณ</h2>
-                    <div className="feature-grid">
-                        
-                        {/* CARD 1: Eye Care Center - โครงสร้างสมบูรณ์ */}
-                        <Link href="#" className="feature-card">
-                            <div className="feature-icon-wrapper">
-                                <span className="feature-icon">👁️</span>
-                                <div className="feature-content">
-                                    <h3>Eye Care Center</h3>
-                                    <p>มองเห็นความรักผ่านดวงตาที่สดใส</p>
-                                </div>
-                            </div>
-                            <div className="feature-image-wrapper">
-                                {/* Path รูปภาพต้องเป็น /assets/2.png */}
-                                <img src="/assets/2.png" alt="Eye Care Center" /> 
-                            </div>
-                        </Link>
-                        
-                        {/* CARD 2: Neurological Center */}
-                        <Link href="#" className="feature-card">
-                            <div className="feature-icon-wrapper">
-                                <span className="feature-icon">🧠</span>
-                                <div className="feature-content">
-                                    <h3>Neurological Center</h3>
-                                    <p>ให้เขากลับมาใช้ชีวิตอย่างมีความสุขอีกครั้ง</p>
-                                </div>
-                            </div>
-                            <div className="feature-image-wrapper">
-                                <img src="/assets/3.png" alt="Neurological Center" />
-                            </div>
-                        </Link>
-                        
-                        {/* CARD 3: Cardio Center */}
-                        <Link href="#" className="feature-card">
-                            <div className="feature-icon-wrapper">
-                                <span className="feature-icon">❤️</span>
-                                <div className="feature-content">
-                                    <h3>Cardio Center</h3>
-                                    <p>คลีนิคจัดการโรคหัวใจได้ทุกระยะ</p>
-                                </div>
-                            </div>
-                            <div className="feature-image-wrapper">
-                                <img src="/assets/4.png" alt="Cardio Center" />
-                            </div>
-                        </Link>
-                        
-                        {/* CARD 4: Diagnostic Imaging */}
-                        <Link href="#" className="feature-card">
-                            <div className="feature-icon-wrapper">
-                                <span className="feature-icon">☢️</span>
-                                <div className="feature-content">
-                                    <h3>Diagnostic Imaging</h3>
-                                    <p>วินิจฉัยแม่นยำเพื่อการรักษาที่ตรงจุด</p>
-                                </div>
-                            </div>
-                            <div className="feature-image-wrapper">
-                                <img src="/assets/2.png" alt="Diagnostic Imaging" />
-                            </div>
-                        </Link>
-                    </div>
-                </section>
+          <main className="primary-content">
 
-                {/* -------------------- 3. Medical Services (ใช้ ServiceCard Component) -------------------- */}
-                <section id="services" className="services" style={{ paddingTop: '50px' }}>
-                    <h2 style={{ textAlign: 'left' }}>บริการทางการแพทย์พื้นฐาน</h2>
-                    <div className="service-grid">
-                        {services.map((service, index) => (
-                            <ServiceCard key={index} {...service} />
-                        ))}
-                    </div>
-                </section>
+            {/* -------------------- 2. Specialized Features -------------------- */}
+            <section className="specialized-features" style={{ paddingTop: 0 }}>
+              <h2 style={{ textAlign: 'left', marginBottom: '50px' }}>ศูนย์เฉพาะทางที่พร้อมให้บริการคุณ</h2>
+              <div className="feature-grid">
 
-                {/* -------------------- 4. About Clinic -------------------- */}
-                <section className="about-clinic">
-                    <div className="container" style={{ padding: 0 }}>
-                        <div className="clinic-info">
-                            <div className="clinic-image">
-                                <img src="/assets/4.png" alt="ทีมสัตวแพทย์ Pawplan" />
-                            </div>
-                            <div className="clinic-text">
-                                <h2>การดูแลที่ใส่ใจ เริ่มต้นที่ความเข้าใจ</h2>
-                                <p>ทีมแพทย์ของเรานำโดย **สพ.ญ. ปาริฉัตร วงศ์วาน (หมอจูน)** ผู้มีประสบการณ์กว่า 10 ปี เราเน้นการดูแลแบบ **Pawplan** คือการวางแผนสุขภาพในระยะยาว ไม่ใช่เพียงแค่การรักษาอาการป่วยฉุกเฉินเท่านั้น</p>
-                                <ul>
-                                    <li>แพทย์เวชปฏิบัติหลักประจำคลินิก</li>
-                                    <li>ระบบนัดหมายที่แม่นยำ</li>
-                                    <li>เครื่องมือวินิจฉัยพื้นฐานครบครัน (X-ray, Lab)</li>
-                                </ul>
-                            </div>
-                        </div>
+                {/* CARD 1: Eye Care Center - โครงสร้างสมบูรณ์ */}
+                <Link href="#" className="feature-card">
+                  <div className="feature-icon-wrapper">
+                    <span className="feature-icon">
+                      <Eye size={60} strokeWidth={2} className="text-blue-500" />
+                    </span>
+                    <div className="feature-content">
+                      <h3>Eye Care Center</h3>
+                      <p>มองเห็นความรักผ่านดวงตาที่สดใส</p>
                     </div>
-                </section>
-                
-                {/* -------------------- 5. Quick CTA -------------------- */}
-                <section id="quick-cta" className="container">
-                  <div className="cta-grid">
-                    <div className="cta-box">
+                  </div>
+                  <div className="feature-image-wrapper">
+                    <img src="/assets/2.png" alt="Eye Care Center" />
+                  </div>
+                </Link>
+
+                {/* CARD 2: Neurological Center */}
+                <Link href="#" className="feature-card">
+                  <div className="feature-icon-wrapper">
+                    <span className="feature-icon">
+                      <Brain size={60} strokeWidth={2} className="text-blue-500" />
+                    </span>
+                    <div className="feature-content">
+                      <h3>Neurological Center</h3>
+                      <p>ให้เขากลับมาใช้ชีวิตอย่างมีความสุขอีกครั้ง</p>
+                    </div>
+                  </div>
+                  <div className="feature-image-wrapper">
+                    <img src="/assets/3.png" alt="Neurological Center" />
+                  </div>
+                </Link>
+
+                {/* CARD 3: Cardio Center */}
+                <Link href="#" className="feature-card">
+                  <div className="feature-icon-wrapper">
+                    <span className="feature-icon">
+                      <HeartPulse size={60} strokeWidth={2} className="text-blue-500" />
+                    </span>
+                    <div className="feature-content">
+                      <h3>Cardio Center</h3>
+                      <p>คลีนิคจัดการโรคหัวใจได้ทุกระยะ</p>
+                    </div>
+                  </div>
+                  <div className="feature-image-wrapper">
+                    <img src="/assets/4.png" alt="Cardio Center" />
+                  </div>
+                </Link>
+
+                {/* CARD 4: Diagnostic Imaging */}
+                <Link href="#" className="feature-card">
+                  <div className="feature-icon-wrapper">
+                    <span className="feature-icon">
+                      <Radiation size={60} strokeWidth={2} />
+                    </span>
+                    <div className="feature-content">
+                      <h3>Diagnostic Imaging</h3>
+                      <p>วินิจฉัยแม่นยำเพื่อการรักษาที่ตรงจุด</p>
+                    </div>
+                  </div>
+                  <div className="feature-image-wrapper">
+                    <img src="/assets/2.png" alt="Diagnostic Imaging" />
+                  </div>
+                </Link>
+              </div>
+
+            </section>
+
+            {/* 3. Medical Services */}
+            <section id="services" className="services-section">
+              <div className="container">
+                <h2 className="section-title">บริการทางการแพทย์พื้นฐาน</h2>
+                <div className="service-grid">
+                  {services.map((service, index) => (
+                    <ServiceCard key={index} {...service} />
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* -------------------- 4. About Clinic -------------------- */}
+            <section className="about-clinic">
+              <div className="container" style={{ padding: 0 }}>
+                <div className="clinic-info">
+                  <div className="clinic-image">
+                    <img src="/assets/4.png" alt="ทีมสัตวแพทย์ Pawplan" />
+                  </div>
+                  <div className="clinic-text">
+                    <h2>การดูแลที่ใส่ใจ เริ่มต้นที่ความเข้าใจ</h2>
+                    <p>ทีมแพทย์ของเรานำโดย **สพ.ญ. ปาริฉัตร วงศ์วาน (หมอจูน)** ผู้มีประสบการณ์กว่า 10 ปี เราเน้นการดูแลแบบ **Pawplan** คือการวางแผนสุขภาพในระยะยาว ไม่ใช่เพียงแค่การรักษาอาการป่วยฉุกเฉินเท่านั้น</p>
+                    <ul>
+                      <li>แพทย์เวชปฏิบัติหลักประจำคลินิก</li>
+                      <li>ระบบนัดหมายที่แม่นยำ</li>
+                      <li>เครื่องมือวินิจฉัยพื้นฐานครบครัน (X-ray, Lab)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div className="divider"></div>
+
+            {/* 5. Quick CTA */}
+            <section id="quick-cta" className="cta-clean-section">
+              <div className="container">
+                <div className="cta-grid">
+
+                  {/* Box 1: นัดหมาย */}
+                  <div className="cta-card">
+                    <div className="cta-header">
+                      <Calendar size={28} className="text-blue-600" />
                       <h3>นัดหมายออนไลน์</h3>
-                      <p>จองเวลาพบสัตวแพทย์ได้ทันที — เลือกบริการและวันที่ที่สะดวก</p>
-                      <Link href="/appointment" className="btn cta-btn">จองนัดหมาย</Link>
                     </div>
-                    <div className="cta-box">
+                    <p>จองเวลาพบสัตวแพทย์ได้ทันที เลือกบริการและวันที่สะดวก</p>
+                    <Link href="/appointment" className="btn-primary-blue">จองนัดหมาย</Link>
+                  </div>
+
+                  {/* Box 2: ฉุกเฉิน (มีขอบแดงด้านบน) */}
+                  <div className="cta-card emergency-border">
+                    <div className="cta-header">
+                      <PhoneCall size={28} className="text-red-500" />
                       <h3>ฉุกเฉิน/ติดต่อด่วน</h3>
-                      <p className="emergency">โทรด่วน 24 ชม.: <strong>02-XXX-XXXX</strong></p>
-                      <p>บริการฉุกเฉินและแผนการรักษาเร่งด่วน</p>
                     </div>
-                    <div className="cta-box">
+                    <div className="emergency-info">
+                      <span className="phone-num">02-XXX-XXXX</span>
+                      <span className="badge-red">โทรด่วน 24 ชม.</span>
+                    </div>
+                    <p className="sub-text">บริการฉุกเฉินและแผนการรักษาเร่งด่วน</p>
+                  </div>
+
+                  {/* Box 3: บริการยอดนิยม */}
+                  <div className="cta-card">
+                    <div className="cta-header">
+                      <Star size={28} className="text-yellow-500" />
                       <h3>บริการยอดนิยม</h3>
-                      <ul className="quick-links">
-                        <li><Link href="/#services">วัคซีน & เวชศาสตร์ป้องกัน</Link></li>
-                        <li><Link href="/petcare">Grooming & Boarding</Link></li>
-                        <li><Link href="/doctors">โปรไฟล์สัตวแพทย์</Link></li>
-                      </ul>
+                    </div>
+                    <ul className="cta-link-list">
+                      <li><Link href="#"><ArrowRight size={16} /> วัคซีน & เวชศาสตร์ป้องกัน</Link></li>
+                      <li><Link href="#"><ArrowRight size={16} /> Grooming & Boarding</Link></li>
+                      <li><Link href="#"><ArrowRight size={16} /> โปรไฟล์สัตวแพทย์</Link></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+            {/* -------------------- 7. Testimonials, Gallery, Location, FAQ, Contact Form -------------------- */}
+            <section id="location" className="container section-location">
+              <h2>แผนที่และที่ตั้ง</h2>
+              <div className="map-wrap">
+                <iframe
+                  src="https://www.google.com/maps?q=Rangsit+University&output=embed"
+                  width="100%"
+                  height={300}
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </section>
+
+
+            {/* FAQ Section  */}
+            <section className="faq-section">
+              <div className="container">
+                <h2 className="section-header-left">คำถามที่พบบ่อย</h2>
+                <div className="header-line"></div>
+                {faqData.map((item, index) => (
+                  <div key={index} className={`faq-item-box ${openFaq === index ? 'active' : ''}`}>
+                    <button className="faq-question-btn" onClick={() => toggleFaq(index)}>
+                      {item.q}
+                      <ChevronDown className="faq-chevron" />
+                    </button>
+                    <div className="faq-answer-content">
+                      <p>{item.a}</p>
                     </div>
                   </div>
-                </section>
+                ))}
 
-                {/* -------------------- 7. Testimonials, Gallery, Location, FAQ, Contact Form -------------------- */}
-                    <section id="location" className="container section-location">
-                      <h2>แผนที่และที่ตั้ง</h2>
-                      <div className="map-wrap">
-                        <iframe
-                          src="https://www.google.com/maps?q=Rangsit+University&output=embed"
-                          width="100%"
-                          height={300}
-                          style={{ border: 0 }}
-                          allowFullScreen
-                          loading="lazy"
-                        ></iframe>
+              </div>
+            </section>
+
+            {/* -------------------- Contact Form Section -------------------- */}
+            <section className="contact-section">
+              <div className="container">
+                <div className="contact-card-wrapper">
+
+                  {/* ฝั่งซ้าย: ข้อมูลการติดต่อ */}
+                  <div className="contact-info-panel">
+                    <div className="info-content">
+                      <h2>ติดต่อเรา</h2>
+                      <p className="subtitle">เราพร้อมดูแลสัตว์เลี้ยงตัวโปรดของคุณ ตลอดเวลาทำการ</p>
+
+                      <div className="meta-info-list">
+                        <div className="info-item">
+                          <div className="icon-box"><Mail size={20} /></div>
+                          <span>pawplan@gmail.com</span>
+                        </div>
+                        <div className="info-item">
+                          <div className="icon-box"><MessageSquare size={20} /></div>
+                          <span>@pawplanclinic</span>
+                        </div>
                       </div>
-                    </section>
-                <section id="faq" className="container section-faq">
-                  <h2>คำถามที่พบบ่อย</h2>
-                  <div className="faq-item">
-                    <button className="faq-q">ต้องเตรียมอะไรบ้างเมื่อต้องพาสัตว์เลี้ยงมาตรวจ?</button>
-                    <div className="faq-a" style={{ display: 'none' }}>กรุณานำประวัติสุขภาพ/วัคซีน และตัวอย่างปัสสาวะ/อุจจาระ (ถ้ามี)</div>
+                    </div>
+                  
+                    <div className="decoration-circle"></div>
                   </div>
-                  <div className="faq-item">
-                    <button className="faq-q">วิธีติดต่อฉุกเฉินในเวลากลางคืน?</button>
-                    <div className="faq-a" style={{ display: 'none' }}>โทรเลขด่วน 24 ชม. ที่เบอร์ในหน้าแรกหรือใช้ช่องทาง Line</div>
-                  </div>
-                </section>
 
-                <section id="contact-form" className="container section-contactform">
-                  <h2>ติดต่อ / ขอคำปรึกษา</h2>
-                  <form id="contactForm" className="contact-form">
-                    <div className="form-row">
-                      <input type="text" name="name" placeholder="ชื่อ-นามสกุล" required />
-                      <input type="tel" name="phone" placeholder="เบอร์โทรศัพท์" required />
+                  {/* ฝั่งขวา: ฟอร์มกรอกข้อมูล */}
+                  <form className="modern-form-body" onSubmit={(e) => e.preventDefault()}>
+                    <div className="form-input-grid">
+                      <div className="input-group">
+                        <input type="text" placeholder="ชื่อ-นามสกุล" required />
+                      </div>
+                      <div className="input-group">
+                        <input type="tel" placeholder="เบอร์โทรศัพท์" required />
+                      </div>
+                      <div className="input-group full-width">
+                        <input type="email" placeholder="อีเมล" />
+                      </div>
+                      <div className="input-group full-width">
+                        <select>
+                          <option value="" disabled selected>เลือกบริการที่ต้องการ</option>
+                          <option>วัคซีน/ตรวจสุขภาพ</option>
+                          <option>ฉุกเฉิน</option>
+                          <option>ตัดขน/อาบน้ำ</option>
+                        </select>
+                      </div>
+                      <div className="input-group full-width">
+                        <textarea placeholder="รายละเอียดเพิ่มเติม..." rows={4}></textarea>
+                      </div>
                     </div>
-                    <div className="form-row">
-                      <input type="email" name="email" placeholder="อีเมล" />
-                      <select name="service">
-                        <option value="">เลือกบริการที่สนใจ</option>
-                        <option>วัคซีน/ตรวจสุขภาพ</option>
-                        <option>ฉุกเฉิน</option>
-                        <option>ตัดขน/อาบน้ำ</option>
-                      </select>
-                    </div>
-                    <textarea name="message" rows={4} placeholder="รายละเอียดเพิ่มเติม"></textarea>
-                    <button type="submit" className="btn cta-btn">ส่งคำขอ</button>
+
+                    <button type="submit" className="btn-send-now">
+                      <span>ส่งข้อความ</span>
+                      <Send size={16} className="send-icon" />
+                    </button>
+
                   </form>
-                </section>
-                
-            </main>
+
+                </div>
+              </div>
+            </section>
+
+          </main>
         </div>
       </div>
-    </>
+    </div>
   );
 }

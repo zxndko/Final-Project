@@ -11,7 +11,12 @@ interface Doctor {
   role?: string;
   imageSrc?: string;
   specialty?: string;
+  email?: string;
+  bio?: string;
+  availableDays?: string[];
 }
+
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export default function DoctorsAdminPage() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -47,7 +52,14 @@ export default function DoctorsAdminPage() {
   const saveDoctor = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selected) return;
-    const body = JSON.stringify({ name: selected.name, specialty: selected.role, imageUrl: selected.imageSrc });
+    const body = JSON.stringify({
+      name: selected.name,
+      specialty: selected.role,
+      imageUrl: selected.imageSrc,
+      email: selected.email,
+      bio: selected.bio,
+      availableDays: selected.availableDays || [],
+    });
     if (selected.id) {
       await fetch(`/api/doctors/${selected.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body });
     } else {
@@ -55,6 +67,12 @@ export default function DoctorsAdminPage() {
     }
     setSelected(null);
     fetchDoctors();
+  };
+
+  const toggleDay = (day: string) => {
+    const days = selected?.availableDays || [];
+    const updated = days.includes(day) ? days.filter((d) => d !== day) : [...days, day];
+    setSelected({ ...selected!, availableDays: updated });
   };
 
   const filteredDoctors = doctors.filter((doc) =>
@@ -68,7 +86,6 @@ export default function DoctorsAdminPage() {
       <HideHeader />
 
       <div className="admin-container-new">
-
         <AdminSidebar />
 
         {/* ===== MAIN CONTENT ===== */}
@@ -166,28 +183,112 @@ export default function DoctorsAdminPage() {
       {selected && (
         <div className="doctors-modal-overlay" onClick={() => setSelected(null)}>
           <form className="doctors-modal" onSubmit={saveDoctor} onClick={(e) => e.stopPropagation()}>
+
+            {/* Header */}
             <div className="doctors-modal__header">
-              <div className="doctors-modal__title">{selected.id ? '✏️ แก้ไขข้อมูลแพทย์' : '➕ เพิ่มแพทย์ใหม่'}</div>
-              <div className="doctors-modal__subtitle">กรอกข้อมูลแพทย์อย่างละเอียด</div>
+              <div>
+                <div className="doctors-modal__title">
+                  {selected.id ? '✏️ แก้ไขข้อมูลแพทย์' : '➕ เพิ่มแพทย์ใหม่'}
+                </div>
+                <div className="doctors-modal__subtitle">กรอกข้อมูลแพทย์อย่างละเอียด</div>
+              </div>
+              <button type="button" className="doctors-modal__close" onClick={() => setSelected(null)}>✕</button>
             </div>
+
             <div className="doctors-modal__fields">
+
+              {/* ชื่อแพทย์ */}
               <div>
                 <label className="doctors-modal__label">ชื่อแพทย์ *</label>
-                <input required className="doctors-modal__input" placeholder="เช่น นพ. สมชาย ใจดี" value={selected.name} onChange={(e) => setSelected({ ...selected, name: e.target.value })} />
+                <input
+                  required
+                  className="doctors-modal__input"
+                  placeholder="เช่น นพ. สมชาย ใจดี"
+                  value={selected.name}
+                  onChange={(e) => setSelected({ ...selected, name: e.target.value })}
+                />
               </div>
+
+              {/* Email */}
               <div>
-                <label className="doctors-modal__label">ความเชี่ยวชาญ *</label>
-                <input required className="doctors-modal__input" placeholder="เช่น จักษุแพทย์, ศัลยแพทย์" value={selected.role || ''} onChange={(e) => setSelected({ ...selected, role: e.target.value })} />
+                <label className="doctors-modal__label">Email</label>
+                <input
+                  type="email"
+                  className="doctors-modal__input"
+                  placeholder="doctor@pawplan.com"
+                  value={selected.email || ''}
+                  onChange={(e) => setSelected({ ...selected, email: e.target.value })}
+                />
               </div>
+
+              {/* ความเชี่ยวชาญ */}
               <div>
-                <label className="doctors-modal__label">Image URL</label>
-                <input className="doctors-modal__input" placeholder="https://example.com/image.jpg" value={selected.imageSrc || ''} onChange={(e) => setSelected({ ...selected, imageSrc: e.target.value })} />
+                <label className="doctors-modal__label">
+                  ความเชี่ยวชาญ * <span className="doctors-modal__hint">(คั่นด้วยจุลภาค)</span>
+                </label>
+                <input
+                  required
+                  className="doctors-modal__input"
+                  placeholder="เช่น จักษุแพทย์, ศัลยแพทย์"
+                  value={selected.role || ''}
+                  onChange={(e) => setSelected({ ...selected, role: e.target.value })}
+                />
               </div>
+
+              {/* Bio */}
+              <div>
+                <label className="doctors-modal__label">ประวัติย่อ</label>
+                <textarea
+                  className="doctors-modal__input doctors-modal__textarea"
+                  placeholder="ประวัติการศึกษาและประสบการณ์..."
+                  value={selected.bio || ''}
+                  onChange={(e) => setSelected({ ...selected, bio: e.target.value })}
+                />
+              </div>
+
+              {/* Image URL */}
+              <div>
+                <label className="doctors-modal__label">Image URL (Optional)</label>
+                <input
+                  className="doctors-modal__input"
+                  placeholder="https://example.com/image.jpg"
+                  value={selected.imageSrc || ''}
+                  onChange={(e) => setSelected({ ...selected, imageSrc: e.target.value })}
+                />
+              </div>
+
+              {/* Available Days */}
+              <div>
+                <label className="doctors-modal__label">วันที่ให้บริการ</label>
+                <div className="doctors-modal__days">
+                  {DAYS.map((day) => {
+                    const active = (selected.availableDays || []).includes(day);
+                    return (
+                      <button
+                        key={day}
+                        type="button"
+                        className={`doctors-modal__day-btn${active ? ' active' : ''}`}
+                        onClick={() => toggleDay(day)}
+                      >
+                        {day}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
             </div>
+
+            {/* Footer */}
             <div className="doctors-modal__footer">
-              <button type="button" onClick={() => setSelected(null)} className="admin-btn admin-btn-secondary">ยกเลิก</button>
-              <button type="submit" className="admin-btn admin-btn-primary">💾 บันทึกข้อมูล</button>
+              <button type="button" onClick={() => setSelected(null)} className="admin-btn admin-btn-secondary">
+                ยกเลิก
+              </button>
+              <button type="submit" className="admin-btn admin-btn-primary">
+                💾 บันทึกข้อมูล
+              </button>
             </div>
+
           </form>
         </div>
       )}

@@ -127,5 +127,5 @@ export default function DogArticlePage() {
         </div>
       </div>
     </section>
-    );
+  );
 }

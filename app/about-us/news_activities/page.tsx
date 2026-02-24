@@ -16,6 +16,7 @@ export default function NewsActivitiesPage() {
             <section className="content-section news-page page-animate">
                 <div className="container">
                     <h2 className="page-title">🔔 ข่าวสารและกิจกรรม</h2>
+                    <div className="divider"></div>
                     <div className="section-deco">
                         <span className="decorative-bar" aria-hidden="true" />
                     </div>

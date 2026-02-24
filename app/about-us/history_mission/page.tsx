@@ -5,6 +5,7 @@ export default function HistoryMissionPage() {
         <section className="content-section history-page page-animate">
             <div className="container">
                 <h2 className="page-title">📄 ประวัติและพันธกิจ</h2>
+                <div className="divider"></div>
                 <p className="intro-text page-subtitle">รู้จัก Pawplan คลินิกสัตว์เลี้ยง</p>
 
                 <div className="image-history-box">
