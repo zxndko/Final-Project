@@ -45,78 +45,87 @@ export default function AppointmentPage() {
     notes: '',
   });
 
-  useEffect(() => {
+  // ✅ ดึงข้อมูลจาก API แทน localStorage
+  const fetchAppointments = async () => {
     try {
-      const data = JSON.parse(localStorage.getItem('appointments') || '[]');
-      setAppointments(data);
+      setLoading(true);
+      const res = await fetch('/api/appointments');
+      const data = await res.json();
+      setAppointments(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Failed to load appointments:', error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
+
+  useEffect(() => { fetchAppointments(); }, []);
 
   useEffect(() => {
     let filtered = appointments;
     if (filterStatus !== 'all') filtered = filtered.filter(a => a.status === filterStatus);
     if (searchTerm) {
       filtered = filtered.filter(a =>
-        a.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        a.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        a.phone.includes(searchTerm) ||
-        a.service.toLowerCase().includes(searchTerm.toLowerCase())
+        a.patient?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        a.petName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        a.phone?.includes(searchTerm) ||
+        a.service?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
     setFilteredAppointments(filtered);
   }, [appointments, searchTerm, filterStatus]);
 
-  const handleSaveAppointment = (e: React.FormEvent) => {
+  // ✅ บันทึกผ่าน API แทน localStorage
+  const handleSaveAppointment = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const all = JSON.parse(localStorage.getItem('appointments') || '[]');
-      const newAppt: Appointment = {
-        id: Date.now(),
-        patient: form.patientName,
-        petName: form.patientName,
-        petType: '',
-        service: form.reason,
-        date: form.date,
-        time: '09:00',
-        owner: form.doctor,
-        phone: '',
-        notes: form.notes,
-        status: form.status,
-        createdAt: new Date().toISOString(),
-      };
-      const updated = [...all, newAppt];
-      localStorage.setItem('appointments', JSON.stringify(updated));
-      setAppointments(updated);
-      setShowModal(false);
-      setForm({ patientName: '', date: new Date().toISOString().split('T')[0], doctor: '', status: 'pending', reason: '', notes: '' });
+      const res = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          patient: form.patientName,
+          petName: form.patientName,
+          petType: '-',
+          service: form.reason,
+          date: form.date,
+          time: '09:00',
+          owner: form.doctor,
+          phone: '-',
+          notes: form.notes,
+          status: form.status,
+        }),
+      });
+      if (res.ok) {
+        await fetchAppointments();
+        setShowModal(false);
+        setForm({ patientName: '', date: new Date().toISOString().split('T')[0], doctor: '', status: 'pending', reason: '', notes: '' });
+      }
     } catch (error) {
       console.error('Save error:', error);
     }
   };
 
-  const handleStatusChange = (item: Appointment, newStatus: string) => {
+  // ✅ อัปเดต status ผ่าน API
+  const handleStatusChange = async (item: Appointment, newStatus: string) => {
     try {
-      const all = JSON.parse(localStorage.getItem('appointments') || '[]');
-      const updated = all.map((a: Appointment) => a.id === item.id ? { ...a, status: newStatus } : a);
-      localStorage.setItem('appointments', JSON.stringify(updated));
-      setAppointments(updated);
+      await fetch(`/api/appointments/${item.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...item, status: newStatus }),
+      });
+      await fetchAppointments();
       setActiveMenu(null);
     } catch (error) {
       console.error('Update error:', error);
     }
   };
 
-  const handleDelete = (item: Appointment) => {
+  // ✅ ลบผ่าน API
+  const handleDelete = async (item: Appointment) => {
     if (!confirm('ลบนัดหมายนี้หรือไม่?')) return;
     try {
-      const all = JSON.parse(localStorage.getItem('appointments') || '[]');
-      const updated = all.filter((a: Appointment) => a.id !== item.id);
-      localStorage.setItem('appointments', JSON.stringify(updated));
-      setAppointments(updated);
+      await fetch(`/api/appointments/${item.id}`, { method: 'DELETE' });
+      await fetchAppointments();
       setActiveMenu(null);
     } catch (error) {
       console.error('Delete error:', error);
@@ -143,12 +152,8 @@ export default function AppointmentPage() {
     <div className="admin-layout">
       <HideHeader />
       <div className="admin-container-new">
-
         <AdminSidebar />
-
-        {/* Main Content */}
         <div className="admin-content-new">
-
           <div className="admin-header-new">
             <div>
               <h1>Appointments</h1>
@@ -162,13 +167,7 @@ export default function AppointmentPage() {
           <div className="appointments-toolbar">
             <div className="search-box-new">
               <span className="search-icon-new">🔍</span>
-              <input
-                type="text"
-                placeholder="Search patients..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input-new"
-              />
+              <input type="text" placeholder="Search patients..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="search-input-new" />
             </div>
             <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="filter-select-new">
               <option value="all">All Status</option>
@@ -200,7 +199,7 @@ export default function AppointmentPage() {
                     <tr key={apt.id} className="table-row-hover">
                       <td>
                         <div className="table-pet-cell">
-                          <div className="pet-avatar">{apt.petName.charAt(0)}</div>
+                          <div className="pet-avatar">{apt.petName?.charAt(0)}</div>
                           <div>
                             <div className="pet-name">{apt.petName}</div>
                             <div className="owner-name">{apt.patient}</div>
@@ -247,12 +246,10 @@ export default function AppointmentPage() {
               </table>
             )}
           </div>
-
         </div>
       </div>
       <HideFooter />
 
-      {/* Modal */}
       {showModal && (
         <div className="appt-modal-overlay" onClick={() => setShowModal(false)}>
           <form className="appt-modal" onSubmit={handleSaveAppointment} onClick={(e) => e.stopPropagation()}>

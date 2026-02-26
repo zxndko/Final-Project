@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 datasource db {
   provider = "sqlserver"
   url      = env("DATABASE_URL")
@@ -17,7 +11,7 @@ model Doctor {
   id        Int      @id @default(autoincrement())
   name      String
   email     String?
-  imageUrl  String?   // 👈 เพิ่มอันนี้
+  imageUrl  String?
   createdAt DateTime @default(now())
   expertise String?
 }
@@ -38,10 +32,24 @@ model Appointment {
   updatedAt DateTime @updatedAt
 }
 
-
-
-
-
-
-
-
+model Article {
+  id        Int      @id @default(autoincrement())
+  title     String
+  category  String   @default("General")
+  content   String   @db.Text
+  imageUrl  String?
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model AboutUs {
+  id        Int      @id @default(autoincrement())
+  section   String
+  title     String
+  content   String   @db.Text
+  imageUrl  String?
+  published Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -14,7 +14,9 @@ export default function ArticleCard({ article }) {
                 {
                     (() => {
                         const img = article?.image || '';
-                        const imageSrc = img.startsWith('/') ? img : `/images/articles/${img}`;
+                        // fix https:/ → https://
+                        const fixedImg = img.replace(/^https:\/([^/])/, 'https://$1').replace(/^http:\/([^/])/, 'http://$1');
+                        const imageSrc = fixedImg.startsWith('/') || fixedImg.startsWith('http') ? fixedImg : `/images/articles/${fixedImg}`;
                         return (
                             <img
                                 src={imageSrc}

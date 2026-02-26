@@ -13,6 +13,11 @@ export default function AppointmentPage() {
                     <div className="step-card"><h3>ขั้นตอนที่ 1: เลือกบริการ</h3><p>ระบุความต้องการของคุณ (ตรวจสุขภาพ, วัคซีน, ทันตกรรม หรือ Pet Care)</p></div>
                     {/* ... (step-card อื่นๆ) ... */}
                 </div>
+                 <div className="steps-grid page-content">
+                    <div className="step-card"><h3>ขั้นตอนที่ 2: เลือกวันและเวลา</h3><p>ระบุวันและเวลาที่สะดวกในการนัดหมาย</p></div>
+                    <div className="step-card"><h3>ขั้นตอนที่ 3: ยืนยันข้อมูล</h3><p>ตรวจสอบรายละเอียดการนัดหมายก่อนยืนยัน</p></div>
+                    <div className="step-card"><h3>ขั้นตอนที่ 4: รับการแจ้งเตือน</h3><p>เจ้าหน้าที่จะโทรกลับเพื่อคอนเฟิร์มภายใน 24 ชั่วโมง</p></div>
+                </div>
 
                 <div className="important-notes center-text page-section">
                     <h3>🚨 ข้อควรรู้ก่อนวันนัดหมาย</h3>

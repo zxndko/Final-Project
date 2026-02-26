@@ -14,7 +14,7 @@ type Article = {
   link?: string;
 };
 
-// เปลี่ยนชื่อ mock data ไม่ให้ชนกับ state
+// ข้อมูลเดิม (hardcode) — ไม่ได้แตะ
 const initialArticles: Article[] = [
   {
     category: "🐕 สุขภาพและการป้องกันโรค",
@@ -54,46 +54,54 @@ const initialArticles: Article[] = [
   },
 ];
 
-const categories = [
+const staticCategories = [
   "ทั้งหมด",
   "🐕 สุขภาพและการป้องกันโรค",
   "💊 โภชนาการอาหาร",
   "🦴 การดูแลเฉพาะช่วงวัย",
   "🛁 การดูแลทั่วไปและการเลี้ยงดู",
-  "🩺 คลินิกพิเศษ"
+  "🩺 คลินิกพิเศษ",
 ];
 
 export default function DogArticlePage() {
   const [selectedCategory, setSelectedCategory] = useState('ทั้งหมด');
-  const [articles, setArticles] = useState<Article[]>(initialArticles); // เริ่มด้วย mock
+  const [apiArticles, setApiArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  // รับค่าเป็น string ตรง ๆ
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
   };
 
-  const filteredArticles = articles.filter(article =>
-    selectedCategory === 'ทั้งหมด' || article.category === selectedCategory
-  );
-
   useEffect(() => {
     setLoading(true);
-    setError(null);
-
-    fetch('/api/articles?type=dog')
+    fetch('/api/content?category=Dog')
       .then((res) => res.json())
-      .then((json) => {
-        if (json?.ok && Array.isArray(json.data)) {
-          setArticles(json.data);
-        } else {
-          setError(json?.error || 'Fetch failed');
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const mapped = data
+            .filter((a) => a.published)
+            .map((a) => ({
+              id: String(a.id),
+              category: '📝 บทความจาก Admin',
+              title: a.title,
+              snippet: a.content,
+              image: a.imageUrl || '/assets/dog1.png',
+            }));
+          setApiArticles(mapped);
         }
       })
-      .catch((err) => setError(err?.message || 'Fetch error'))
+      .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
+
+  const allArticles = [...initialArticles, ...apiArticles];
+  const allCategories = apiArticles.length > 0
+    ? [...staticCategories, '📝 บทความจาก Admin']
+    : staticCategories;
+
+  const filteredArticles = allArticles.filter(article =>
+    selectedCategory === 'ทั้งหมด' || article.category === selectedCategory
+  );
 
   return (
     <section className="content-section dog-page page-animate">
@@ -102,11 +110,10 @@ export default function DogArticlePage() {
         <div className="section-deco">
           <span className="decorative-bar" aria-hidden="true" />
         </div>
-
         <p className="intro-text page-subtitle">ข้อมูลสุขภาพและการเลี้ยงดูที่เชื่อถือได้จากสัตวแพทย์ Pawplan เพื่อคุณภาพชีวิตที่ดีที่สุดของเพื่อนซี้สี่ขาของคุณ</p>
 
         <CategoryTabs
-          categories={categories}
+          categories={allCategories}
           selectedCategory={selectedCategory}
           onCategoryChange={handleCategoryChange}
         />
@@ -115,8 +122,6 @@ export default function DogArticlePage() {
 
         <div className="article-card-grid page-content">
           {loading && <p>กำลังโหลด...</p>}
-          {error && <p className="text-red-600">{error}</p>}
-
           {filteredArticles.length > 0 ? (
             filteredArticles.map((article, index) => (
               <ArticleCard key={article.id ?? `${article.title}-${index}`} article={article} />

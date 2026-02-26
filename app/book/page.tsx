@@ -55,33 +55,39 @@ export default function BookPage() {
         setIsConfirmed(true);
     };
 
-    const handleConfirm = () => {
-        const service = formData.service === 'อื่นๆ' ? formData.otherService : formData.service;
-        const petType = formData.petType === 'อื่นๆ' ? formData.otherPetType : formData.petType;
+const handleConfirm = async () => {
+    const service = formData.service === 'อื่นๆ' ? formData.otherService : formData.service;
+    const petType = formData.petType === 'อื่นๆ' ? formData.otherPetType : formData.petType;
 
-        const appointment = {
-            id: Date.now(),
-            patient: formData.owner,
-            service,
-            date: formData.date,
-            time: formData.time,
-            owner: formData.owner,
-            phone: formData.phone,
-            petName: formData.petName,
-            petType,
-            notes: formData.notes || '',
-            status: 'pending',
-            createdAt: new Date().toISOString(),
-        };
+    try {
+      const res = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          patient: formData.owner,
+          service,
+          date: formData.date,
+          time: formData.time,
+          owner: formData.owner,
+          phone: formData.phone,
+          petName: formData.petName,
+          petType,
+          notes: formData.notes || '',
+          status: 'pending',
+        }),
+      });
 
-        // บันทึกลง localStorage
-        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-        appointments.push(appointment);
-        localStorage.setItem('appointments', JSON.stringify(appointments));
-
+      if (res.ok) {
         alert('บันทึกนัดหมายสำเร็จ!');
         router.push('/');
-    };
+      } else {
+        alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+      }
+    } catch (error) {
+      console.error('Confirm error:', error);
+      alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+    }
+};
 
     return (
         <main className="content-section booking-page page-animate">

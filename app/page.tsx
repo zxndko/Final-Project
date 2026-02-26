@@ -5,13 +5,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import ServiceCard from '@/components/ServiceCard';
 import DoctorCard from '@/components/DoctorCard';
-
 import {
   Eye, Brain, HeartPulse, Radiation, Stethoscope, Bath,
   HandPlatter, Calendar, ArrowRight, PhoneCall, Star, ChevronDown,
   Send, MessageSquare, Mail
 } from 'lucide-react';
-
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -39,6 +37,47 @@ export default function HomePage() {
     { name: "สพ.ดร. ณัฐพงศ์ ศิริรัตน์", role: "ทันตกรรม", imageSrc: "/assets/Nut.png" },
     { name: "สพ.อริยา พงษ์ไพศาล", role: "โรคผิวหนังและภูมิแพ้", imageSrc: "/assets/Ari.png" },
   ];
+      const [form, setForm] = useState({
+      name: '',
+      phone: '',
+      email: '',
+      service: '',
+      message: '',
+    });
+
+    const handleChange = (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >
+    ) => {
+      const { name, value } = e.target;
+      setForm((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        });
+
+        if (!res.ok) throw new Error('ส่งไม่สำเร็จ');
+
+        alert('ส่งข้อความเรียบร้อยแล้ว');
+        setForm({
+          name: '',
+          phone: '',
+          email: '',
+          service: '',
+          message: '',
+        });
+      } catch (err) {
+        alert('เกิดข้อผิดพลาด กรุณาลองใหม่');
+      }
+    };
 
   return (
     <div className="homepage-wrapper">
@@ -285,27 +324,57 @@ export default function HomePage() {
                   </div>
 
                   {/* ฝั่งขวา: ฟอร์มกรอกข้อมูล */}
-                  <form className="modern-form-body" onSubmit={(e) => e.preventDefault()}>
+                  <form className="modern-form-body" onSubmit={handleSubmit}>
                     <div className="form-input-grid">
                       <div className="input-group">
-                        <input type="text" placeholder="ชื่อ-นามสกุล" required />
+                        <input 
+                          type="text" 
+                          name="name" 
+                          placeholder="ชื่อ-นามสกุล" 
+                          required 
+                          value={form.name}
+                          onChange={handleChange}
+                        />
                       </div>
                       <div className="input-group">
-                        <input type="tel" placeholder="เบอร์โทรศัพท์" required />
+                        <input 
+                          type="tel" 
+                          name="phone" 
+                          placeholder="เบอร์โทรศัพท์" 
+                          required 
+                          value={form.phone}
+                          onChange={handleChange}
+                        />
                       </div>
                       <div className="input-group full-width">
-                        <input type="email" placeholder="อีเมล" />
+                        <input 
+                          type="email" 
+                          name="email" 
+                          placeholder="อีเมล" 
+                          required
+                          value={form.email}
+                          onChange={handleChange}
+                        />
                       </div>
                       <div className="input-group full-width">
-                        <select>
-                          <option value="" disabled selected>เลือกบริการที่ต้องการ</option>
-                          <option>วัคซีน/ตรวจสุขภาพ</option>
-                          <option>ฉุกเฉิน</option>
-                          <option>ตัดขน/อาบน้ำ</option>
+                        <select defaultValue="">
+                        <option value="" disabled>
+                          เลือกบริการที่ต้องการ
+                        </option>
+                        <option value="checkup">วัคซีน/ตรวจสุขภาพ</option>
+                        <option value="emergency">ฉุกเฉิน</option>
+                        <option value="grooming">ตัดขน/อาบน้ำ</option>
                         </select>
                       </div>
                       <div className="input-group full-width">
-                        <textarea placeholder="รายละเอียดเพิ่มเติม..." rows={4}></textarea>
+                        <textarea 
+                          name="message" 
+                          placeholder="รายละเอียดเพิ่มเติม..." 
+                          rows={4}
+                          value={form.message}
+                          onChange={handleChange}
+                        ></textarea>
+                        
                       </div>
                     </div>
 

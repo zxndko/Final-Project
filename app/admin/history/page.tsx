@@ -27,19 +27,28 @@ export default function HistoryPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      const data = JSON.parse(localStorage.getItem('appointments') || '[]');
-      const confirmed = data.filter((a: Appointment) => a.status === 'confirmed');
-      setHistory(confirmed);
-    } catch (error) {
-      console.error('Failed to load history:', error);
-    } finally {
-      setLoading(false);
-    }
+    const fetchHistory = async () => {
+      try {
+        const res = await fetch('/api/appointments');
+        const data = await res.json();
+        // กรองเฉพาะ status Confirmed (case-insensitive)
+        const confirmed = data.filter(
+          (a: Appointment) => a.status?.toLowerCase() === 'confirmed'
+        );
+        setHistory(confirmed);
+      } catch (error) {
+        console.error('Failed to load history:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchHistory();
   }, []);
 
   const filteredHistory = history.filter((a) => {
-    const matchDate = !selectedDate || a.date === selectedDate;
+    // date จาก DB อาจเป็น ISO string เช่น "2026-03-01T00:00:00.000Z" หรือ "2026-03-01"
+    const apptDate = a.date?.split('T')[0]; // normalize เป็น YYYY-MM-DD
+    const matchDate = !selectedDate || apptDate === selectedDate;
     const matchPatient = !selectedPatient || a.patient === selectedPatient;
     return matchDate && matchPatient;
   });
@@ -129,7 +138,7 @@ export default function HistoryPage() {
                             <span><strong>🏥 บริการ:</strong></span><span>{appt.service}</span>
                           </div>
                           <div className="admin-list-item history-detail-item">
-                            <span><strong>📅 วันเวลา:</strong></span><span>{appt.date} @ {appt.time}</span>
+                            <span><strong>📅 วันเวลา:</strong></span><span>{appt.date?.split('T')[0]} @ {appt.time}</span>
                           </div>
                           <div className="admin-list-item history-detail-item">
                             <span><strong>🐾 สัตว์:</strong></span><span>{appt.petName} ({appt.petType})</span>
