@@ -13,7 +13,7 @@ import {
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState(null);
 
-  const toggleFaq = (index) => {
+  const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
