@@ -1,6 +1,6 @@
 import Link from 'next/link';
-
-export default function ArticleCard({ article }) {
+// แบบง่ายที่สุด
+export default function ArticleCard({ article }: { article: any }) {
     return (
         <div className="article-card">
             <div className="card-image-wrapper">
